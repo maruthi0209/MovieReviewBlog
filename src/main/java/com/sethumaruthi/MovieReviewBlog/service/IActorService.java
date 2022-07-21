@@ -10,7 +10,7 @@ import com.sethumaruthi.MovieReviewBlog.models.Actor;
 @Component
 public interface IActorService {
 	
-	public ResponseEntity<Object> getActor(Long actorId);
+	public ResponseEntity<Actor> getActor(Long actorId);
 	
 	public ResponseEntity<List<Actor>> getAllActors();
 	

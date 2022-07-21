@@ -27,7 +27,7 @@ public class ActorController {
 	}
 	
 	@GetMapping(value = "/getActor/{actorId}")
-	public ResponseEntity<Object> getActor(@PathVariable Long actorId) {
+	public ResponseEntity<Actor> getActor(@PathVariable Long actorId) {
 		return iActorService.getActor(actorId);
 	}
 	

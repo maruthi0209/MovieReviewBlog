@@ -17,7 +17,6 @@ public class Actor {
 	private String actorName;
 
 	public Actor() {
-		super();
 	}
 
 	public Actor(Long actorId, String actorName) {

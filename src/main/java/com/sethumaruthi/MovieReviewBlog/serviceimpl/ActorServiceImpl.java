@@ -2,8 +2,7 @@ package com.sethumaruthi.MovieReviewBlog.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +22,10 @@ public class ActorServiceImpl implements IActorService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<Object> getActor(Long actorId) {
-		if (iActorRepository.existsById(actorId)) {
-			Optional<Actor> actor = iActorRepository.findById(actorId);
-			ResponseEntity<Object> getResponse = new ResponseEntity<>(actor.get(), HttpStatus.OK);
+	public ResponseEntity<Actor> getActor(Long actorId) {
+			Actor actor = iActorRepository.findById(actorId).orElseThrow(()-> new EntityNotFoundException("Actor by id " + actorId + " was not found"));
+			ResponseEntity<Actor> getResponse = new ResponseEntity<>(actor, HttpStatus.OK);
 			return getResponse;
-		} else {
-			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
-		}
 	}
 
 	@Override
@@ -44,7 +39,7 @@ public class ActorServiceImpl implements IActorService{
 	@Override
 	public ResponseEntity<Actor> createActor(Actor actor) {
 		Actor savedActor = iActorRepository.save(actor);
-		ResponseEntity<Actor> savedResponse = new ResponseEntity<Actor>(savedActor, HttpStatus.CREATED);
+		ResponseEntity<Actor> savedResponse = new ResponseEntity<>(savedActor, HttpStatus.CREATED);
 		return savedResponse;
 	}
 
