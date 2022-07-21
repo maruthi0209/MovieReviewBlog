@@ -23,7 +23,7 @@ public class ActorServiceImpl implements IActorService{
 	@Override
 	@Transactional
 	public ResponseEntity<Actor> getActor(Long actorId) {
-			Actor actor = iActorRepository.findById(actorId).orElseThrow(()-> new EntityNotFoundException("Actor by id " + actorId + " was not found"));
+			Actor actor = iActorRepository.findById(actorId).orElseThrow(()-> new EntityNotFoundException("Actor with id " + actorId + " was not found"));
 			ResponseEntity<Actor> getResponse = new ResponseEntity<>(actor, HttpStatus.OK);
 			return getResponse;
 	}
