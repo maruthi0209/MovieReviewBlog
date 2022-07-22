@@ -29,6 +29,7 @@ public class ActorServiceImpl implements IActorService{
 	}
 
 	@Override
+	@Transactional
 	public ResponseEntity<List<Actor>> getAllActors() {
 		List<Actor> actorsList = new ArrayList<Actor>();
 		actorsList = iActorRepository.findAll();
@@ -37,6 +38,7 @@ public class ActorServiceImpl implements IActorService{
 	}
 
 	@Override
+	@Transactional
 	public ResponseEntity<Actor> createActor(Actor actor) {
 		Actor savedActor = iActorRepository.save(actor);
 		ResponseEntity<Actor> savedResponse = new ResponseEntity<>(savedActor, HttpStatus.CREATED);

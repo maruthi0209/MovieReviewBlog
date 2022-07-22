@@ -1,6 +1,5 @@
 package com.sethumaruthi.MovieReviewBlog.models;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -22,7 +21,7 @@ public class Movie {
 	private String movieName;
 	
 	@Column(name = "release_date", nullable = false)
-	private LocalDate releaseDate;
+	private String releaseDate;
 	
 	@ManyToMany
 	private List<Genre> movieGenre;
@@ -40,7 +39,7 @@ public class Movie {
 		super();
 	}
 
-	public Movie(Long movieId, String movieName, LocalDate releaseDate, List<Genre> movieGenre, List<Actor> movieCast,
+	public Movie(Long movieId, String movieName, String releaseDate, List<Genre> movieGenre, List<Actor> movieCast,
 			Director movieDirector, Studio movieStudio) {
 		super();
 		this.movieId = movieId;
@@ -75,11 +74,11 @@ public class Movie {
 		this.movieName = movieName;
 	}
 
-	public LocalDate getReleaseDate() {
+	public String getReleaseDate() {
 		return releaseDate;
 	}
 
-	public void setReleaseDate(LocalDate releaseDate) {
+	public void setReleaseDate(String releaseDate) {
 		this.releaseDate = releaseDate;
 	}
 

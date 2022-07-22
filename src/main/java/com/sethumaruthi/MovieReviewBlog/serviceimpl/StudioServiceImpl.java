@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ public class StudioServiceImpl implements IStudioService{
 	private IStudioRepository iStudioRepository;
 
 	@Override
+	@Transactional
 	public ResponseEntity<Studio> getStudio(Long studioId) {
 		Studio studio = iStudioRepository.findById(studioId).orElseThrow(() -> new EntityNotFoundException("Studio with Id " + studioId + " was not found"));
 		ResponseEntity<Studio> getResponse = new ResponseEntity<>(studio, HttpStatus.OK);
@@ -28,6 +30,7 @@ public class StudioServiceImpl implements IStudioService{
 	}
 
 	@Override
+	@Transactional
 	public ResponseEntity<List<Studio>> getAllStudios() {
 		List<Studio> studiosList = new ArrayList<Studio>();
 		studiosList = iStudioRepository.findAll();
@@ -36,9 +39,10 @@ public class StudioServiceImpl implements IStudioService{
 	}
 
 	@Override
+	@Transactional
 	public ResponseEntity<Studio> createStudio(Studio studio) {
 		Studio savedStudio = iStudioRepository.save(studio);
-		ResponseEntity<Studio> savedResponse = new ResponseEntity<>(savedStudio, HttpStatus.ACCEPTED);
+		ResponseEntity<Studio> savedResponse = new ResponseEntity<>(savedStudio, HttpStatus.CREATED);
 		return savedResponse;
 	}
 

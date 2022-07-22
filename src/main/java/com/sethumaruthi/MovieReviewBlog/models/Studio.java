@@ -14,20 +14,20 @@ public class Studio {
 	private Long studioId;
 	
 	@Column(name = "studio_name", nullable = false)
-	private String studio_name;
+	private String studioName;
 
 	public Studio() {
 	}
 
-	public Studio(Long studioId, String studio_name) {
+	public Studio(Long studioId, String studioName) {
 		super();
 		this.studioId = studioId;
-		this.studio_name = studio_name;
+		this.studioName = studioName;
 	}
 
 	@Override
 	public String toString() {
-		return "Studio [studioId=" + studioId + ", studio_name=" + studio_name + "]";
+		return "Studio [studioId=" + studioId + ", studioName=" + studioName + "]";
 	}
 
 	public Long getStudioId() {
@@ -38,14 +38,14 @@ public class Studio {
 		this.studioId = studioId;
 	}
 
-	public String getStudio_name() {
-		return studio_name;
+	public String getStudioName() {
+		return studioName;
 	}
 
-	public void setStudio_name(String studio_name) {
-		this.studio_name = studio_name;
+	public void setStudioName(String studioName) {
+		this.studioName = studioName;
 	}
-	
+
 	
 
 }
