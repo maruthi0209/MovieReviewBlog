@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "review_user", uniqueConstraints={@UniqueConstraint(columnNames = {"user_id" , "user_email"})})
@@ -23,6 +24,7 @@ public class ReviewUser {
 	@Column(name = "user_password", nullable = false)
 	private String userPassword;
 	
+	@NotNull
 	@ManyToOne
 	private UserRole userRole;
 
