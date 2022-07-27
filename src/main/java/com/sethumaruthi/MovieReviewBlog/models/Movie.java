@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -35,18 +36,20 @@ public class Movie {
 	@ManyToMany
 	private List<Actor> movieCast;
 	
-	@ManyToOne
 	private Director movieDirector;
 	
-	@ManyToOne
 	private Studio movieStudio;
+	
+	@OneToMany
+	private List<Review> movieReviews;
 
 	public Movie() {
 		super();
 	}
-	
+
 	public Movie(Long movieId, String movieName, String releaseDate, Long budget, Long boxOffice,
-			List<Genre> movieGenre, List<Actor> movieCast, Director movieDirector, Studio movieStudio) {
+			List<Genre> movieGenre, List<Actor> movieCast, Director movieDirector, Studio movieStudio,
+			List<Review> movieReviews) {
 		super();
 		this.movieId = movieId;
 		this.movieName = movieName;
@@ -57,13 +60,14 @@ public class Movie {
 		this.movieCast = movieCast;
 		this.movieDirector = movieDirector;
 		this.movieStudio = movieStudio;
+		this.movieReviews = movieReviews;
 	}
 
 	@Override
 	public String toString() {
-		return "Movie [movieId=" + movieId + ", movieName=" + movieName + ", releaseDate=" + releaseDate
-				+ ", budget=" + budget + ", boxOffice=" + boxOffice + ", movieGenre=" + movieGenre
-				+ ", movieCast=" + movieCast + ", movieDirector=" + movieDirector + ", movieStudio=" + movieStudio
+		return "Movie [movieId=" + movieId + ", movieName=" + movieName + ", releaseDate=" + releaseDate + ", budget="
+				+ budget + ", boxOffice=" + boxOffice + ", movieGenre=" + movieGenre + ", movieCast=" + movieCast
+				+ ", movieDirector=" + movieDirector + ", movieStudio=" + movieStudio + ", movieReviews=" + movieReviews
 				+ "]";
 	}
 
@@ -138,5 +142,15 @@ public class Movie {
 	public void setBoxOffice(Long boxOffice) {
 		this.boxOffice = boxOffice;
 	}
+
+	public List<Review> getMovieReviews() {
+		return movieReviews;
+	}
+
+	public void setMovieReviews(List<Review> movieReviews) {
+		this.movieReviews = movieReviews;
+	}
+	
+	
 	
 }

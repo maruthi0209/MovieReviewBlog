@@ -24,8 +24,6 @@ public class ReviewUser {
 	@Column(name = "user_password", nullable = false)
 	private String userPassword;
 	
-	@NotNull
-	@ManyToOne
 	private UserRole userRole;
 
 	public ReviewUser() {
