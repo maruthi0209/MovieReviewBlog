@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.sethumaruthi.MovieReviewBlog.models.ReviewUser;
+import com.sethumaruthi.MovieReviewBlog.models.AppUser;
 import com.sethumaruthi.MovieReviewBlog.repository.IUserRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IUserService;
 
@@ -22,25 +22,25 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<ReviewUser> createUser(ReviewUser user) {
-		ReviewUser savedUser = iUserRepository.save(user);
-		ResponseEntity<ReviewUser> savedResponse = new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+	public ResponseEntity<AppUser> createUser(AppUser user) {
+		AppUser savedUser = iUserRepository.save(user);
+		ResponseEntity<AppUser> savedResponse = new ResponseEntity<>(savedUser, HttpStatus.CREATED);
 		return savedResponse;
 	}
 
 	@Override
 	@Transactional
-	public ResponseEntity<ReviewUser> getUser(Long userId) {
-		ReviewUser user = iUserRepository.findById(userId).orElseThrow(()-> new EntityNotFoundException("User with username " + userId + " was not found"));
-		ResponseEntity<ReviewUser> getResponse = new ResponseEntity<>(user, HttpStatus.OK);
+	public ResponseEntity<AppUser> getUser(Long userId) {
+		AppUser user = iUserRepository.findById(userId).orElseThrow(()-> new EntityNotFoundException("User with username " + userId + " was not found"));
+		ResponseEntity<AppUser> getResponse = new ResponseEntity<>(user, HttpStatus.OK);
 		return getResponse;
 	}
 
 	@Override
 	@Transactional
-	public ResponseEntity<List<ReviewUser>> getAllUsers() {
-		List<ReviewUser> usersList = iUserRepository.findAll();
-		ResponseEntity<List<ReviewUser>> listResponse = new ResponseEntity<>(usersList, HttpStatus.OK);
+	public ResponseEntity<List<AppUser>> getAllUsers() {
+		List<AppUser> usersList = iUserRepository.findAll();
+		ResponseEntity<List<AppUser>> listResponse = new ResponseEntity<>(usersList, HttpStatus.OK);
 		return listResponse;
 	}
 

@@ -5,15 +5,15 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import com.sethumaruthi.MovieReviewBlog.models.ReviewUser;
+import com.sethumaruthi.MovieReviewBlog.models.AppUser;
 
 @Component
 public interface IUserService {
 	
-	public ResponseEntity<ReviewUser> createUser(ReviewUser user);
+	public ResponseEntity<AppUser> createUser(AppUser user);
 	
-	public ResponseEntity<ReviewUser> getUser(Long userId);
+	public ResponseEntity<AppUser> getUser(Long userId);
 	
-	public ResponseEntity<List<ReviewUser>> getAllUsers();
+	public ResponseEntity<List<AppUser>> getAllUsers();
 
 }

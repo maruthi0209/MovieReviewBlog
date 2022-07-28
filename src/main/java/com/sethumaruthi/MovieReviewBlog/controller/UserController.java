@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.sethumaruthi.MovieReviewBlog.models.ReviewUser;
+import com.sethumaruthi.MovieReviewBlog.models.AppUser;
 import com.sethumaruthi.MovieReviewBlog.service.IUserService;
 
 @Controller
@@ -22,17 +22,17 @@ public class UserController {
 	private IUserService iUserService;
 	
 	@PostMapping(value = "/createUser")
-	public ResponseEntity<ReviewUser> createUser(@RequestBody ReviewUser user) {
+	public ResponseEntity<AppUser> createUser(@RequestBody AppUser user) {
 		return iUserService.createUser(user);
 	}
 	
 	@GetMapping(value = "/getUser/{userId}")
-	public ResponseEntity<ReviewUser> getUser(@PathVariable Long userId){
+	public ResponseEntity<AppUser> getUser(@PathVariable Long userId){
 		return iUserService.getUser(userId);
 	}
 	
 	@GetMapping(value = "/getAllUsers")
-	public ResponseEntity<List<ReviewUser>> getAllUsers() {
+	public ResponseEntity<List<AppUser>> getAllUsers() {
 		return iUserService.getAllUsers();
 	}
 }

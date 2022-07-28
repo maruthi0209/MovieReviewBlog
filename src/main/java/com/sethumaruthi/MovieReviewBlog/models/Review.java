@@ -5,7 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "review")
@@ -15,6 +16,7 @@ public class Review {
 	@Column(name = "review_id", nullable = false)
 	private Long reviewId;
 	
+	@Length(min = 1, max = 50, message = "Review title should be between 1-50 chars")
 	@Column(name = "review_title", nullable = false)
 	private String reviewTitle;
 	
@@ -24,25 +26,31 @@ public class Review {
 	@Column(name = "review_rating", nullable = false)
 	private int reviewRating;
 	
-	private ReviewUser user;
+	@ManyToOne
+	private AppUser user;
+	
+	@ManyToOne
+	private Movie movie;
 
 	public Review() {
 		super();
 	}
 
-	public Review(Long reviewId, String reviewTitle, String reviewDescription, int reviewRating, ReviewUser user) {
+	@Override
+	public String toString() {
+		return "Review [reviewId=" + reviewId + ", reviewTitle=" + reviewTitle + ", reviewDescription="
+				+ reviewDescription + ", reviewRating=" + reviewRating + ", user=" + user + ", movie=" + movie + "]";
+	}
+
+	public Review(Long reviewId, String reviewTitle, String reviewDescription, int reviewRating, AppUser user,
+			Movie movie) {
 		super();
 		this.reviewId = reviewId;
 		this.reviewTitle = reviewTitle;
 		this.reviewDescription = reviewDescription;
 		this.reviewRating = reviewRating;
 		this.user = user;
-	}
-
-	@Override
-	public String toString() {
-		return "Review [reviewId=" + reviewId + ", reviewTitle=" + reviewTitle + ", reviewDescription="
-				+ reviewDescription + ", reviewRating=" + reviewRating + ", user=" + user + "]";
+		this.movie = movie;
 	}
 
 	public Long getReviewId() {
@@ -77,12 +85,21 @@ public class Review {
 		this.reviewRating = reviewRating;
 	}
 
-	public ReviewUser getUser() {
+	public AppUser getUser() {
 		return user;
 	}
 
-	public void setUser(ReviewUser user) {
+	public void setUser(AppUser user) {
 		this.user = user;
 	}
+
+	public Movie getMovie() {
+		return movie;
+	}
+
+	public void setMovie(Movie movie) {
+		this.movie = movie;
+	}
+	
 		
 }

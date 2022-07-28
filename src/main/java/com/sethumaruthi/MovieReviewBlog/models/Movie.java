@@ -36,8 +36,10 @@ public class Movie {
 	@ManyToMany
 	private List<Actor> movieCast;
 	
-	private Director movieDirector;
+	@ManyToMany
+	private List<Director> movieDirector;
 	
+	@ManyToOne
 	private Studio movieStudio;
 	
 	@OneToMany
@@ -48,7 +50,7 @@ public class Movie {
 	}
 
 	public Movie(Long movieId, String movieName, String releaseDate, Long budget, Long boxOffice,
-			List<Genre> movieGenre, List<Actor> movieCast, Director movieDirector, Studio movieStudio,
+			List<Genre> movieGenre, List<Actor> movieCast, List<Director> movieDirector, Studio movieStudio,
 			List<Review> movieReviews) {
 		super();
 		this.movieId = movieId;
@@ -111,11 +113,11 @@ public class Movie {
 		this.movieCast = movieCast;
 	}
 
-	public Director getMovieDirector() {
+	public List<Director> getMovieDirector() {
 		return movieDirector;
 	}
 
-	public void setMovieDirector(Director movieDirector) {
+	public void setMovieDirector(List<Director> movieDirector) {
 		this.movieDirector = movieDirector;
 	}
 
