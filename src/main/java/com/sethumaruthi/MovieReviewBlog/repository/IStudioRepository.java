@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.sethumaruthi.MovieReviewBlog.models.Studio;
 
@@ -15,8 +16,8 @@ public interface IStudioRepository extends JpaRepository<Studio, Long>{
 	int deleteStudioMovie(Long studioId);
 	
 	@Modifying
-	@Query(value = "INSERT INTO public.studio_studio_movies(studio_studio_id, studio_movies_movie_id) VALUES (?1, ?1);", nativeQuery = true)
-	int insertIntoStudioMovies(Long studioId, Long movieid);
+	@Query(value = "INSERT INTO public.studio_studio_movies(studio_studio_id, studio_movies_movie_id) VALUES (:studioId, :movieId);", nativeQuery = true)
+	int insertIntoStudioMovies(@Param("studioId") Long studioId, @Param("movieId") Long movieid);
 	
 	@Modifying
 	@Query(value = "DELETE FROM public.studio_studio_movies WHERE studio_studio_id=?1 ;", nativeQuery = true)

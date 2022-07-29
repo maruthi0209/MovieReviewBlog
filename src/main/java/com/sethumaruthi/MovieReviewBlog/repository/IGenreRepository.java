@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.sethumaruthi.MovieReviewBlog.models.Genre;
 
@@ -15,8 +16,8 @@ public interface IGenreRepository extends JpaRepository<Genre, Long>{
 	int deleteMovieGenre(Long genreId);
 	
 	@Modifying
-	@Query(value = "INSERT INTO public.genre_genre_movies(genre_genre_id, genre_movies_movie_id) VALUES (?1, ?2);", nativeQuery = true)
-	int insertIntoGenreMovies(Long genreId, Long movieId);
+	@Query(value = "INSERT INTO public.genre_genre_movies(genre_genre_id, genre_movies_movie_id) VALUES (:genreId, :movieId);", nativeQuery = true)
+	int insertIntoGenreMovies(@Param("genreId") Long genreId, @Param("movieId") Long movieId);
 	
 	@Modifying
 	@Query(value = "DELETE FROM public.genre_genre_movies WHERE genre_genre_id = ?1;", nativeQuery = true)
