@@ -15,5 +15,7 @@ public interface IGenreService {
 	public ResponseEntity<List<Genre>> getAllGenres();
 	
 	public ResponseEntity<Genre> createGenre(Genre genre);
+	
+	public ResponseEntity<String> deleteGenre(Long genreId);
 
 }

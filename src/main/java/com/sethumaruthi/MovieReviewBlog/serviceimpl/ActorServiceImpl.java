@@ -58,14 +58,13 @@ public class ActorServiceImpl implements IActorService{
 			if (iActorRepository.getMovieListByActor(actorId).isEmpty()) {
 				logger.info("This actor has no associated movies.");
 			} else {
-				iActorRepository.deleteActorMoviesByActorId(actorId);
+				iActorRepository.deleteMovieCast(actorId);
 				logger.info("Deleted the movie mappings for this actor.");
 			}
-			iActorRepository.deleteMovieCast(actorId);
+			iActorRepository.deleteById(actorId);
 			return new ResponseEntity<>("Deleted actor " + actorId, HttpStatus.OK);
 		} else {
-			logger.info("Actor with id " + actorId + " was not found");
-			return new ResponseEntity<>("Could not delete actor with Id: " + actorId, HttpStatus.OK);
+			return new ResponseEntity<>("Could not delete actor with Id: " + actorId + ". Actor with id " + actorId + " was not found", HttpStatus.OK);
 		}
 	}
 

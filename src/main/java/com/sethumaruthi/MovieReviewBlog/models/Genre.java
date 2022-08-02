@@ -19,8 +19,8 @@ public class Genre {
 	@Column(name = "genre_description", nullable = false)
 	private String genreDescription;
 	
-	@ManyToMany
-	private List<Movie> genreMovies;
+//	@ManyToMany
+//	private List<Movie> genreMovies;
 
 	public Genre() {
 		super();
@@ -30,13 +30,12 @@ public class Genre {
 		super();
 		this.genreId = genreId;
 		this.genreDescription = genreDescription;
-		this.genreMovies = genreMovies;
+//		this.genreMovies = genreMovies;
 	}
 
 	@Override
 	public String toString() {
-		return "Genre [genreId=" + genreId + ", genreDescription=" + genreDescription + ", genreMovies=" + genreMovies
-				+ "]";
+		return "Genre [genreId=" + genreId + ", genreDescription=" + genreDescription + ", genreMovies="				+ "]";
 	}
 
 	public Long getGenreId() {
@@ -55,12 +54,12 @@ public class Genre {
 		this.genreDescription = genreDescription;
 	}
 
-	public List<Movie> getGenreMovies() {
-		return genreMovies;
-	}
-
-	public void setGenreMovies(List<Movie> genreMovies) {
-		this.genreMovies = genreMovies;
-	}
+//	public List<Movie> getGenreMovies() {
+//		return genreMovies;
+//	}
+//
+//	public void setGenreMovies(List<Movie> genreMovies) {
+//		this.genreMovies = genreMovies;
+//	}
 	
 }

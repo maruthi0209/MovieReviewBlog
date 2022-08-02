@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,5 +35,10 @@ public class GenreController {
 	@PostMapping(value = "/createGenre")
 	public ResponseEntity<Genre> createGenre(@RequestBody Genre genre) {
 		return iGenreService.createGenre(genre);
+	}
+	
+	@DeleteMapping(value = "/deleteGenre/{genreId}")
+	public ResponseEntity<String> deleteGenre(@PathVariable Long genreId) {
+		return iGenreService.deleteGenre(genreId);
 	}
 }
