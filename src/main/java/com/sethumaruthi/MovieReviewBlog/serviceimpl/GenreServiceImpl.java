@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.sethumaruthi.MovieReviewBlog.models.Genre;
-import com.sethumaruthi.MovieReviewBlog.repository.IDirectorRepository;
 import com.sethumaruthi.MovieReviewBlog.repository.IGenreRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IGenreService;
 
