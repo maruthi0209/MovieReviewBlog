@@ -15,5 +15,7 @@ public interface IStudioService {
 	public ResponseEntity<List<Studio>> getAllStudios();
 	
 	public ResponseEntity<Studio> createStudio(Studio studio);
+	
+	public ResponseEntity<String> deleteStudio(Long studioId); 
 
 }

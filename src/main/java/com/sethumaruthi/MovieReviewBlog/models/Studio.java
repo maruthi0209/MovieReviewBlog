@@ -1,11 +1,8 @@
 package com.sethumaruthi.MovieReviewBlog.models;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,23 +15,19 @@ public class Studio {
 	
 	@Column(name = "studio_name", nullable = false)
 	private String studioName;
-	
-	@OneToMany
-	private List<Movie> studioMovies;
 
 	public Studio() {
 	}
 
-	public Studio(Long studioId, String studioName, List<Movie> studioMovies) {
+	public Studio(Long studioId, String studioName) {
 		super();
 		this.studioId = studioId;
 		this.studioName = studioName;
-		this.studioMovies = studioMovies;
 	}
 
 	@Override
 	public String toString() {
-		return "Studio [studioId=" + studioId + ", studioName=" + studioName + ", studioMovies=" + studioMovies + "]";
+		return "Studio [studioId=" + studioId + ", studioName=" + studioName + "]";
 	}
 
 	public Long getStudioId() {
@@ -52,14 +45,5 @@ public class Studio {
 	public void setStudioName(String studioName) {
 		this.studioName = studioName;
 	}
-
-	public List<Movie> getStudioMovies() {
-		return studioMovies;
-	}
-
-	public void setStudioMovies(List<Movie> studioMovies) {
-		this.studioMovies = studioMovies;
-	}
-
 
 }

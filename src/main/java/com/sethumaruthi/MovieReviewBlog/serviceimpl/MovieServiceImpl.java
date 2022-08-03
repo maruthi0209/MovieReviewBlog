@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,8 @@ public class MovieServiceImpl implements IMovieService{
 	
 	@Autowired
 	private IMovieRepository iMovieRepository;
+	
+	public static final Logger logger = LoggerFactory.getLogger(MovieServiceImpl.class);
 
 	@Override
 	@Transactional
@@ -42,6 +46,34 @@ public class MovieServiceImpl implements IMovieService{
 		Movie savedMovie = iMovieRepository.save(movie);
 		ResponseEntity<Movie> savedResponse = new ResponseEntity<Movie>(savedMovie, HttpStatus.CREATED);
 		return savedResponse;
+	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<String> deleteMovie(Long movieId) {
+		if (iMovieRepository.existsById(movieId)) {
+			logger.info("Movie by Id " + movieId + " exists. Deleting it..");
+			logger.info("Deleting associated tables data.");
+			deleteMovieAssociatedTablesData(movieId);
+			logger.info("Deleted associated tables data.");
+			iMovieRepository.deleteById(movieId);
+			return new ResponseEntity<>("Deleted movie " + movieId, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Could not delete movie with Id: " + movieId + ". Movie with id " + movieId + " was not found", HttpStatus.OK);
+		}
+	}
+	
+	@Transactional
+	private void deleteMovieAssociatedTablesData(Long movieId) {
+		logger.info("Deleting data from Movie Actors table.");
+		iMovieRepository.deleteFromMovieCast(movieId);
+		logger.info("Deleted data from Movie Actors table.");
+		logger.info("Deleting data from Movie Genre table.");
+		iMovieRepository.deleteFromMovieGenre(movieId);
+		logger.info("Deleted data from Movie Genre table.");
+		logger.info("Deleting data from Movie Directors table.");
+		iMovieRepository.deleteFromMovieDirector(movieId);
+		logger.info("Deleted data from Movie Directors table.");
 	}
 
 }

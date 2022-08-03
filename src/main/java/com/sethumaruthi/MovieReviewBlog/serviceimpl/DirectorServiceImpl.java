@@ -23,7 +23,7 @@ public class DirectorServiceImpl implements IDirectorService{
 	@Autowired
 	private IDirectorRepository iDirectorRepository;
 	
-	public static final Logger logger = LoggerFactory.getLogger(ActorServiceImpl.class);
+	public static final Logger logger = LoggerFactory.getLogger(DirectorServiceImpl.class);
 
 	@Override
 	@Transactional

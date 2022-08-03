@@ -23,7 +23,7 @@ public class GenreServiceImpl implements IGenreService{
 	@Autowired
 	private IGenreRepository iGenreRepository;
 	
-	public static final Logger logger = LoggerFactory.getLogger(ActorServiceImpl.class);
+	public static final Logger logger = LoggerFactory.getLogger(GenreServiceImpl.class);
 
 	@Override
 	@Transactional
@@ -63,7 +63,7 @@ public class GenreServiceImpl implements IGenreService{
 			iGenreRepository.deleteById(genreId);
 			return new ResponseEntity<>("Deleted genre " + genreId, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>("Could not delete actor with Id: " + genreId + ". Genre with id " + genreId + " was not found", HttpStatus.OK);
+			return new ResponseEntity<>("Could not delete genre with Id: " + genreId + ". Genre with id " + genreId + " was not found", HttpStatus.OK);
 		}
 	}
 

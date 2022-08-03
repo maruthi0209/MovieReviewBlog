@@ -15,5 +15,7 @@ public interface IMovieService {
 	public ResponseEntity<List<Movie>> getAllMovies();
 	
 	public ResponseEntity<Movie> createMovie(Movie movie);
+	
+	public ResponseEntity<String> deleteMovie(Long movieId);
 
 }

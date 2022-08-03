@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ public class StudioServiceImpl implements IStudioService{
 	
 	@Autowired
 	private IStudioRepository iStudioRepository;
+	
+	public static final Logger logger = LoggerFactory.getLogger(StudioServiceImpl.class);
 
 	@Override
 	@Transactional
@@ -44,6 +48,24 @@ public class StudioServiceImpl implements IStudioService{
 		Studio savedStudio = iStudioRepository.save(studio);
 		ResponseEntity<Studio> savedResponse = new ResponseEntity<>(savedStudio, HttpStatus.CREATED);
 		return savedResponse;
+	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<String> deleteStudio(Long studioId) {
+		if (iStudioRepository.existsById(studioId)) {
+			logger.info("Studio by Id " + studioId + " exists. Deleting it..");
+			if (iStudioRepository.getMoviesByStudio(studioId).isEmpty()) {
+				logger.info("This studio has no associated movies.");
+			} else {
+				iStudioRepository.updateStudioMoviesByStudioId(studioId);
+				logger.info("Deleted the movie mappings for this studio.");
+			}
+			iStudioRepository.deleteById(studioId);
+			return new ResponseEntity<>("Deleted studio " + studioId, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Could not delete studio with Id: " + studioId + ". Studio with id " + studioId + " was not found", HttpStatus.OK);
+		}	
 	}
 
 }
