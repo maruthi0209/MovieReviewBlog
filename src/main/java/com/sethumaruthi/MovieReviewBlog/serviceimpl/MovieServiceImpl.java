@@ -71,9 +71,6 @@ public class MovieServiceImpl implements IMovieService{
 		logger.info("Deleting data from Movie Genre table.");
 		iMovieRepository.deleteFromMovieGenre(movieId);
 		logger.info("Deleted data from Movie Genre table.");
-		logger.info("Deleting data from Movie Directors table.");
-		iMovieRepository.deleteFromMovieDirector(movieId);
-		logger.info("Deleted data from Movie Directors table.");
 	}
 
 }

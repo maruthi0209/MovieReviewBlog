@@ -15,11 +15,7 @@ public interface IMovieRepository extends JpaRepository<Movie, Long>{
 	@Modifying
 	@Query(value = "DELETE FROM public.movie_movie_genre WHERE movie_movie_id = ?1 ;", nativeQuery = true)
 	int deleteFromMovieGenre(Long movieId);
-	
-	@Modifying
-	@Query(value = "DELETE FROM public.movie_movie_director WHERE movie_movie_id = ?1 ;", nativeQuery = true)
-	int deleteFromMovieDirector(Long movieId);
-	
+		
 	@Modifying 
 	@Query(value = "DELETE FROM public.review WHERE movie_movie_id = ?1 ;", nativeQuery = true)
 	int deleteFromReview(Long movieId);	

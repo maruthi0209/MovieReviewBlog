@@ -36,8 +36,8 @@ public class Movie {
 	@ManyToMany
 	private List<Actor> movieCast;
 	
-	@ManyToMany
-	private List<Director> movieDirector;
+	@ManyToOne
+	private Director movieDirector;
 	
 	@ManyToOne
 	private Studio movieStudio;
@@ -50,7 +50,7 @@ public class Movie {
 	}
 
 	public Movie(Long movieId, String movieName, String releaseDate, Long budget, Long boxOffice,
-			List<Genre> movieGenre, List<Actor> movieCast, List<Director> movieDirector, Studio movieStudio,
+			List<Genre> movieGenre, List<Actor> movieCast, Director movieDirector, Studio movieStudio,
 			List<Review> movieReviews) {
 		super();
 		this.movieId = movieId;
@@ -97,38 +97,6 @@ public class Movie {
 		this.releaseDate = releaseDate;
 	}
 
-	public List<Genre> getMovieGenre() {
-		return movieGenre;
-	}
-
-	public void setMovieGenre(List<Genre> movieGenre) {
-		this.movieGenre = movieGenre;
-	}
-
-	public List<Actor> getMovieCast() {
-		return movieCast;
-	}
-
-	public void setMovieCast(List<Actor> movieCast) {
-		this.movieCast = movieCast;
-	}
-
-	public List<Director> getMovieDirector() {
-		return movieDirector;
-	}
-
-	public void setMovieDirector(List<Director> movieDirector) {
-		this.movieDirector = movieDirector;
-	}
-
-	public Studio getMovieStudio() {
-		return movieStudio;
-	}
-
-	public void setMovieStudio(Studio movieStudio) {
-		this.movieStudio = movieStudio;
-	}
-
 	public Long getBudget() {
 		return budget;
 	}
@@ -145,6 +113,38 @@ public class Movie {
 		this.boxOffice = boxOffice;
 	}
 
+	public List<Genre> getMovieGenre() {
+		return movieGenre;
+	}
+
+	public void setMovieGenre(List<Genre> movieGenre) {
+		this.movieGenre = movieGenre;
+	}
+
+	public List<Actor> getMovieCast() {
+		return movieCast;
+	}
+
+	public void setMovieCast(List<Actor> movieCast) {
+		this.movieCast = movieCast;
+	}
+
+	public Director getMovieDirector() {
+		return movieDirector;
+	}
+
+	public void setMovieDirector(Director movieDirector) {
+		this.movieDirector = movieDirector;
+	}
+
+	public Studio getMovieStudio() {
+		return movieStudio;
+	}
+
+	public void setMovieStudio(Studio movieStudio) {
+		this.movieStudio = movieStudio;
+	}
+
 	public List<Review> getMovieReviews() {
 		return movieReviews;
 	}
@@ -152,7 +152,5 @@ public class Movie {
 	public void setMovieReviews(List<Review> movieReviews) {
 		this.movieReviews = movieReviews;
 	}
-	
-	
 	
 }

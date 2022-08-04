@@ -51,6 +51,7 @@ public class GenreServiceImpl implements IGenreService{
 	}
 
 	@Override
+	@Transactional
 	public ResponseEntity<String> deleteGenre(Long genreId) {
 		if (iGenreRepository.existsById(genreId)) {
 			logger.info("Genre by Id " + genreId + " exists. Deleting it..");
