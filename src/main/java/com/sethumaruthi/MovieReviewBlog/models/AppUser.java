@@ -1,12 +1,9 @@
 package com.sethumaruthi.MovieReviewBlog.models;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
@@ -29,27 +26,22 @@ public class AppUser {
 	@ManyToOne
 	private UserRole userRole;
 	
-	@OneToMany
-	private List<Review> reviewsList;
-
 	public AppUser() {
 		super();
 	}
 
-	public AppUser(Long userId, @Email String userEmail, String userPassword, UserRole userRole,
-			List<Review> reviewsList) {
+	public AppUser(Long userId, @Email String userEmail, String userPassword, UserRole userRole) {
 		super();
 		this.userId = userId;
 		this.userEmail = userEmail;
 		this.userPassword = userPassword;
 		this.userRole = userRole;
-		this.reviewsList = reviewsList;
 	}
 
 	@Override
 	public String toString() {
-		return "ReviewUser [userId=" + userId + ", userEmail=" + userEmail + ", userPassword=" + userPassword
-				+ ", userRole=" + userRole + ", reviewsList=" + reviewsList + "]";
+		return "AppUser [userId=" + userId + ", userEmail=" + userEmail + ", userPassword=" + userPassword
+				+ ", userRole=" + userRole + "]";
 	}
 
 	public Long getUserId() {
@@ -82,14 +74,6 @@ public class AppUser {
 
 	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
-	}
-
-	public List<Review> getUserReviews() {
-		return reviewsList;
-	}
-
-	public void setUserReviews(List<Review> reviewsList) {
-		this.reviewsList = reviewsList;
 	}
 		
 }

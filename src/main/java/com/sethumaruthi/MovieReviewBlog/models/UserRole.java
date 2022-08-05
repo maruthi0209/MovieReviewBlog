@@ -1,11 +1,8 @@
 package com.sethumaruthi.MovieReviewBlog.models;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,24 +15,20 @@ public class UserRole {
 	
 	@Column(name = "role_description", nullable = false)
 	private String roleDescription;
-	
-	@OneToMany
-	private List<AppUser> users;
 
 	public UserRole() {
 		super();
 	}
 
-	public UserRole(Long roleId, String roleDescription, List<AppUser> users) {
-		super();
-		this.roleId = roleId;
-		this.roleDescription = roleDescription;
-		this.users = users;
-	}
+	public UserRole(Long roleId, String roleDescription) {
+	super();
+	this.roleId = roleId;
+	this.roleDescription = roleDescription;
+}
 
 	@Override
 	public String toString() {
-		return "UserRole [roleId=" + roleId + ", roleDescription=" + roleDescription + ", users=" + users + "]";
+		return "UserRole [roleId=" + roleId + ", roleDescription=" + roleDescription + "]";
 	}
 
 	public Long getRoleId() {
@@ -54,13 +47,13 @@ public class UserRole {
 		this.roleDescription = roleDescription;
 	}
 
-	public List<AppUser> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<AppUser> users) {
-		this.users = users;
-	}
+//	public List<AppUser> getUsers() {
+//		return users;
+//	}
+//
+//	public void setUsers(List<AppUser> users) {
+//		this.users = users;
+//	}
 	
 
 }

@@ -15,5 +15,7 @@ public interface IUserService {
 	public ResponseEntity<AppUser> getUser(Long userId);
 	
 	public ResponseEntity<List<AppUser>> getAllUsers();
+	
+	public ResponseEntity<String> deleteUser(Long userId);
 
 }

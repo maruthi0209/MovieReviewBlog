@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,8 @@ public class UserRoleServiceImpl implements IUserRoleService{
 	
 	@Autowired
 	private IUserRoleRepository iUserRoleRepository;
+	
+	public static final Logger logger = LoggerFactory.getLogger(UserRoleServiceImpl.class);
 
 	@Override
 	@Transactional
@@ -42,6 +46,24 @@ public class UserRoleServiceImpl implements IUserRoleService{
 		List<UserRole> rolesList = iUserRoleRepository.findAll();
 		ResponseEntity<List<UserRole>> listResponse = new ResponseEntity<>(rolesList, HttpStatus.OK);
 		return listResponse;
+	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<String> deleteRole(Long roleId) {
+		if (iUserRoleRepository.existsById(roleId)) {
+			logger.info("Role by Id " + roleId + " exists. Deleting it..");
+			if (iUserRoleRepository.getUsersFromRoleId(roleId).isEmpty()) {
+				logger.info("This Role has no associated movies.");
+			} else {
+				iUserRoleRepository.updateRoleUsersByRoleId(roleId);
+				logger.info("Deleted the user mappings for this role.");
+			}
+			iUserRoleRepository.deleteById(roleId);
+			return new ResponseEntity<>("Deleted studio " + roleId, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Could not delete role with Id: " + roleId + ". Role with id " + roleId + " was not found", HttpStatus.OK);
+		}
 	}
 
 }

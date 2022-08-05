@@ -15,5 +15,7 @@ public interface IUserRoleService {
 	public ResponseEntity<UserRole> getRole(Long roleId);
 	
 	public ResponseEntity<List<UserRole>> getAllRoles();
+	
+	public ResponseEntity<String> deleteRole(Long roleId);
 
 }
