@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import com.sethumaruthi.MovieReviewBlog.models.Actor;
 import com.sethumaruthi.MovieReviewBlog.repository.IActorRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IActorService;
-import com.sethumaruthi.MovieReviewBlog.util.ValidateEntities;
+import com.sethumaruthi.MovieReviewBlog.util.ValidateActorEntities;
 
 @Service
 public class ActorServiceImpl implements IActorService{
@@ -24,7 +24,7 @@ public class ActorServiceImpl implements IActorService{
 	private IActorRepository iActorRepository;
 	
 	@Autowired
-	private ValidateEntities validateEntities;
+	private ValidateActorEntities validateActorEntities;
 	
 	public static final Logger logger = LoggerFactory.getLogger(ActorServiceImpl.class);
 
@@ -48,9 +48,9 @@ public class ActorServiceImpl implements IActorService{
 	@Override
 	@Transactional
 	public ResponseEntity<String> createActor(Actor actor) {
-		if (validateEntities.validateActor(actor)) {
+		if (validateActorEntities.validateActor(actor)) {
 			Actor savedActor = iActorRepository.save(actor);
-			logger.debug("Saved actor: " + savedActor.toString());
+			logger.info("Saved actor: " + savedActor.toString());
 			logger.info("Actor saved successfully.");
 			return new ResponseEntity<>("Actor details saved successfully.", HttpStatus.CREATED);
 		} else {
@@ -62,9 +62,9 @@ public class ActorServiceImpl implements IActorService{
 	@Transactional
 	public ResponseEntity<String> deleteActor(Long actorId) {
 		if (iActorRepository.existsById(actorId)) {
-			logger.debug("Actor by Id " + actorId + " exists. Deleting it..");
+			logger.info("Actor by Id " + actorId + " exists. Deleting it..");
 			if (iActorRepository.getMovieListByActor(actorId).isEmpty()) {
-				logger.debug("This actor has no associated movies.");
+				logger.info("This actor has no associated movies.");
 			} else {
 				iActorRepository.deleteMovieCast(actorId);
 				logger.info("Deleted the movie mappings for this actor.");

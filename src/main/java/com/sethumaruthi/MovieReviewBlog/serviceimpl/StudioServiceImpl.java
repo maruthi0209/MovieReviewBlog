@@ -16,12 +16,16 @@ import org.springframework.stereotype.Service;
 import com.sethumaruthi.MovieReviewBlog.models.Studio;
 import com.sethumaruthi.MovieReviewBlog.repository.IStudioRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IStudioService;
+import com.sethumaruthi.MovieReviewBlog.util.ValidateStudioEntities;
 
 @Service
 public class StudioServiceImpl implements IStudioService{
 	
 	@Autowired
 	private IStudioRepository iStudioRepository;
+	
+	@Autowired
+	private ValidateStudioEntities validateStudioEntities;
 	
 	public static final Logger logger = LoggerFactory.getLogger(StudioServiceImpl.class);
 
@@ -44,10 +48,14 @@ public class StudioServiceImpl implements IStudioService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<Studio> createStudio(Studio studio) {
-		Studio savedStudio = iStudioRepository.save(studio);
-		ResponseEntity<Studio> savedResponse = new ResponseEntity<>(savedStudio, HttpStatus.CREATED);
-		return savedResponse;
+	public ResponseEntity<String> createStudio(Studio studio) {
+		if (validateStudioEntities.validateStudio(studio)) {
+			Studio savedStudio = iStudioRepository.save(studio);
+			logger.info("Saved studio: " + savedStudio.toString());
+			logger.info("Studio saved successfully.");
+			return new ResponseEntity<>("Studio details saved successfully", HttpStatus.CREATED);
+		}
+		return new ResponseEntity<>("Studio details failed validation check. Enter valid details.", HttpStatus.BAD_REQUEST);
 	}
 
 	@Override

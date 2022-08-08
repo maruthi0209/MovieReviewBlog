@@ -33,7 +33,7 @@ public class GenreController {
 	}
 	
 	@PostMapping(value = "/createGenre")
-	public ResponseEntity<Genre> createGenre(@RequestBody Genre genre) {
+	public ResponseEntity<String> createGenre(@RequestBody Genre genre) {
 		return iGenreService.createGenre(genre);
 	}
 	

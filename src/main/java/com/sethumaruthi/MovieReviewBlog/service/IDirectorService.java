@@ -14,7 +14,7 @@ public interface IDirectorService {
 	
 	public ResponseEntity<List<Director>> getAllDirectors();
 	
-	public ResponseEntity<Director> createDirector(Director director);
+	public ResponseEntity<String> createDirector(Director director);
 	
 	public ResponseEntity<String> deleteDirector(Long directorId);
 

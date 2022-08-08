@@ -16,12 +16,16 @@ import org.springframework.stereotype.Service;
 import com.sethumaruthi.MovieReviewBlog.models.Genre;
 import com.sethumaruthi.MovieReviewBlog.repository.IGenreRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IGenreService;
+import com.sethumaruthi.MovieReviewBlog.util.ValidateGenreEntities;
 
 @Service
 public class GenreServiceImpl implements IGenreService{
 	
 	@Autowired
 	private IGenreRepository iGenreRepository;
+	
+	@Autowired
+	private ValidateGenreEntities validateGenreEntities;
 	
 	public static final Logger logger = LoggerFactory.getLogger(GenreServiceImpl.class);
 
@@ -44,10 +48,15 @@ public class GenreServiceImpl implements IGenreService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<Genre> createGenre(Genre genre) {
-		Genre savedGenre = iGenreRepository.save(genre);
-		ResponseEntity<Genre> savedResponse = new ResponseEntity<Genre>(savedGenre, HttpStatus.CREATED);
-		return savedResponse;
+	public ResponseEntity<String> createGenre(Genre genre) {
+		if (validateGenreEntities.validateGenre(genre)) {
+			Genre savedGenre = iGenreRepository.save(genre);
+			logger.info("Saved genre: " + savedGenre.toString());
+			logger.info("Genre saved successfully.");
+			return new ResponseEntity<>("Genre details saved successfully.", HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>("Genre details failed validation check. Enter valid details.", HttpStatus.CREATED);
+		}
 	}
 
 	@Override

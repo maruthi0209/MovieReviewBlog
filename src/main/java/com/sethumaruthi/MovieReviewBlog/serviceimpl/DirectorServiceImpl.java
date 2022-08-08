@@ -16,12 +16,16 @@ import org.springframework.stereotype.Service;
 import com.sethumaruthi.MovieReviewBlog.models.Director;
 import com.sethumaruthi.MovieReviewBlog.repository.IDirectorRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IDirectorService;
+import com.sethumaruthi.MovieReviewBlog.util.ValidateDirectorEntities;
 
 @Service
 public class DirectorServiceImpl implements IDirectorService{
 	
 	@Autowired
 	private IDirectorRepository iDirectorRepository;
+	
+	@Autowired
+	private ValidateDirectorEntities validateDirectorEntities;
 	
 	public static final Logger logger = LoggerFactory.getLogger(DirectorServiceImpl.class);
 
@@ -44,10 +48,15 @@ public class DirectorServiceImpl implements IDirectorService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<Director> createDirector(Director director) {
-		Director savedDirector = iDirectorRepository.save(director);
-		ResponseEntity<Director> savedResponse = new ResponseEntity<>(savedDirector, HttpStatus.CREATED);
-		return savedResponse;
+	public ResponseEntity<String> createDirector(Director director) {
+		if (validateDirectorEntities.validateDirector(director)) {
+			Director savedDirector = iDirectorRepository.save(director);
+			logger.info("Saved director: " + savedDirector.toString());
+			logger.info("Director saved successfully.");
+			return new ResponseEntity<>("Director details saved successfully.", HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>("Director details failed validation check. Enter valid details.", HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	@Override

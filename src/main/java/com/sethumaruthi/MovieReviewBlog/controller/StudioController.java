@@ -33,7 +33,7 @@ public class StudioController {
 	}
 	
 	@PostMapping(value = "/createStudio")
-	public ResponseEntity<Studio> createStudio(@RequestBody Studio studio) {
+	public ResponseEntity<String> createStudio(@RequestBody Studio studio) {
 		return iStudioService.createStudio(studio);
 	}
 	

@@ -33,7 +33,7 @@ public class DirectorController {
 	}
 	
 	@PostMapping(value = "/createDirector")
-	public ResponseEntity<Director> createDirector(@RequestBody Director director) {
+	public ResponseEntity<String> createDirector(@RequestBody Director director) {
 		return iDirectorService.createDirector(director);
 	}
 	
