@@ -14,7 +14,7 @@ public interface IActorService {
 	
 	public ResponseEntity<List<Actor>> getAllActors();
 	
-	public ResponseEntity<Actor> createActor(Actor actor);
+	public ResponseEntity<String> createActor(Actor actor);
 	
 	public ResponseEntity<String> deleteActor(Long actorId);
 

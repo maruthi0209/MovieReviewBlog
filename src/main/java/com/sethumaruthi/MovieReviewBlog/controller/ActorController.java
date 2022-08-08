@@ -23,7 +23,7 @@ public class ActorController {
 	private IActorService iActorService;
 	
 	@PostMapping(value = "/createActor")
-	public ResponseEntity<Actor> createActor(@RequestBody Actor actor) {
+	public ResponseEntity<String> createActor(@RequestBody Actor actor) {
 		return iActorService.createActor(actor);
 	}
 	

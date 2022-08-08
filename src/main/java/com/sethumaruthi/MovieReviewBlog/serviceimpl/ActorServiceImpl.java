@@ -15,12 +15,16 @@ import org.springframework.stereotype.Service;
 import com.sethumaruthi.MovieReviewBlog.models.Actor;
 import com.sethumaruthi.MovieReviewBlog.repository.IActorRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IActorService;
+import com.sethumaruthi.MovieReviewBlog.util.ValidateEntities;
 
 @Service
 public class ActorServiceImpl implements IActorService{
 	
 	@Autowired
 	private IActorRepository iActorRepository;
+	
+	@Autowired
+	private ValidateEntities validateEntities;
 	
 	public static final Logger logger = LoggerFactory.getLogger(ActorServiceImpl.class);
 
@@ -43,25 +47,30 @@ public class ActorServiceImpl implements IActorService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<Actor> createActor(Actor actor) {
-		System.out.println(actor);
-		Actor savedActor = iActorRepository.save(actor);
-		ResponseEntity<Actor> savedResponse = new ResponseEntity<>(savedActor, HttpStatus.CREATED);
-		return savedResponse;
+	public ResponseEntity<String> createActor(Actor actor) {
+		if (validateEntities.validateActor(actor)) {
+			Actor savedActor = iActorRepository.save(actor);
+			logger.debug("Saved actor: " + savedActor.toString());
+			logger.info("Actor saved successfully.");
+			return new ResponseEntity<>("Actor details saved successfully.", HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>("Actor details failed validation check. Enter valid details.", HttpStatus.BAD_REQUEST);
+		}	
 	}
 
 	@Override
 	@Transactional
 	public ResponseEntity<String> deleteActor(Long actorId) {
 		if (iActorRepository.existsById(actorId)) {
-			logger.info("Actor by Id " + actorId + " exists. Deleting it..");
+			logger.debug("Actor by Id " + actorId + " exists. Deleting it..");
 			if (iActorRepository.getMovieListByActor(actorId).isEmpty()) {
-				logger.info("This actor has no associated movies.");
+				logger.debug("This actor has no associated movies.");
 			} else {
 				iActorRepository.deleteMovieCast(actorId);
 				logger.info("Deleted the movie mappings for this actor.");
 			}
 			iActorRepository.deleteById(actorId);
+			logger.info("Actor deleted successfully.");
 			return new ResponseEntity<>("Deleted actor " + actorId, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>("Could not delete actor with Id: " + actorId + ". Actor with id " + actorId + " was not found", HttpStatus.OK);
