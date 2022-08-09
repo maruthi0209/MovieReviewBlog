@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.sethumaruthi.MovieReviewBlog.models.UserRole;
 import com.sethumaruthi.MovieReviewBlog.repository.IUserRoleRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IUserRoleService;
+import com.sethumaruthi.MovieReviewBlog.util.ValidateUserRoleEntities;
 
 @Service
 public class UserRoleServiceImpl implements IUserRoleService{
@@ -22,14 +23,22 @@ public class UserRoleServiceImpl implements IUserRoleService{
 	@Autowired
 	private IUserRoleRepository iUserRoleRepository;
 	
+	@Autowired
+	private ValidateUserRoleEntities validateUserRoleEntities;
+	
 	public static final Logger logger = LoggerFactory.getLogger(UserRoleServiceImpl.class);
 
 	@Override
 	@Transactional
-	public ResponseEntity<UserRole> createRole(UserRole role) {
-		UserRole savedRole = iUserRoleRepository.save(role);
-		ResponseEntity<UserRole> savedResponse = new ResponseEntity<>(savedRole, HttpStatus.CREATED);
-		return savedResponse;
+	public ResponseEntity<String> createRole(UserRole role) {
+		if (validateUserRoleEntities.validateUserRole(role)) {
+			UserRole savedRole = iUserRoleRepository.save(role);
+			logger.info("Saved role: " + savedRole.toString());
+			logger.info("User Role saved successfully.");
+			return new ResponseEntity<>("User Role details saved successfully.", HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>("User Role details failed validation check. Enter valid details.", HttpStatus.BAD_REQUEST);	
+		}
 	}
 
 	@Override

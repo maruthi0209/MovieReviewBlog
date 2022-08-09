@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.PositiveOrZero;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -16,15 +17,16 @@ public class Review {
 	@Column(name = "review_id", nullable = false)
 	private Long reviewId;
 	
-	@Length(min = 1, max = 50, message = "Review title should be between 1-50 chars")
+	@Length(min = 3, max = 50, message = "Review title should be between 1-50 chars")
 	@Column(name = "review_title", nullable = false)
 	private String reviewTitle;
 	
 	@Column(name = "review_description", nullable = false)
 	private String reviewDescription;
 	
+	@PositiveOrZero
 	@Column(name = "review_rating", nullable = false)
-	private int reviewRating;
+	private float reviewRating;
 	
 	@ManyToOne
 	private AppUser user;
@@ -42,7 +44,7 @@ public class Review {
 				+ reviewDescription + ", reviewRating=" + reviewRating + ", user=" + user + ", movie=" + movie + "]";
 	}
 
-	public Review(Long reviewId, String reviewTitle, String reviewDescription, int reviewRating, AppUser user,
+	public Review(Long reviewId, String reviewTitle, String reviewDescription, float reviewRating, AppUser user,
 			Movie movie) {
 		super();
 		this.reviewId = reviewId;
@@ -77,11 +79,11 @@ public class Review {
 		this.reviewDescription = reviewDescription;
 	}
 
-	public int getReviewRating() {
+	public float getReviewRating() {
 		return reviewRating;
 	}
 
-	public void setReviewRating(int reviewRating) {
+	public void setReviewRating(float reviewRating) {
 		this.reviewRating = reviewRating;
 	}
 

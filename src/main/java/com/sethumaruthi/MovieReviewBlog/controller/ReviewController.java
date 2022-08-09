@@ -22,7 +22,7 @@ public class ReviewController {
 	private IReviewService iReviewService;
 	
 	@PostMapping(value = "/createReview")
-	public ResponseEntity<Review> createReview(@RequestBody Review review) {
+	public ResponseEntity<String> createReview(@RequestBody Review review) {
 		return iReviewService.createReview(review);
 	}
 

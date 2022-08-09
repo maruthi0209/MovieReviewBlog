@@ -10,7 +10,7 @@ import com.sethumaruthi.MovieReviewBlog.models.Review;
 @Component
 public interface IReviewService {
 	
-	public ResponseEntity<Review> createReview(Review review);
+	public ResponseEntity<String> createReview(Review review);
 	
 	public ResponseEntity<Review> getReview(Long reviewId);
 	

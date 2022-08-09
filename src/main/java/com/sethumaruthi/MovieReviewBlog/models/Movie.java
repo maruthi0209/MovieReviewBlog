@@ -9,6 +9,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.PositiveOrZero;
 
 @Entity
 @Table(name = "movie")
@@ -24,9 +25,11 @@ public class Movie {
 	@Column(name = "release_date", nullable = false)
 	private String releaseDate;
 	
+	@PositiveOrZero
 	@Column(name = "budget", nullable = false)
 	private Long budget;
 	
+	@PositiveOrZero
 	@Column(name = "box_office", nullable = false)
 	private Long boxOffice;
 	

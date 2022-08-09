@@ -8,6 +8,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 
+import org.hibernate.validator.constraints.Length;
+
 @Entity
 @Table(name = "app_user", uniqueConstraints={@UniqueConstraint(columnNames = {"user_id" , "user_email"})})
 public class AppUser {
@@ -20,6 +22,7 @@ public class AppUser {
 	@Column(name = "user_email", nullable = false )
 	private String userEmail;
 	
+	@Length(min = 8 , max = 20)
 	@Column(name = "user_password", nullable = false)
 	private String userPassword;
 	

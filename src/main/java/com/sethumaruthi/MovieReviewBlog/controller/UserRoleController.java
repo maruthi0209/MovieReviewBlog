@@ -23,7 +23,7 @@ public class UserRoleController {
 	private IUserRoleService iUserRoleService;
 	
 	@PostMapping(value = "/createRole")
-	public ResponseEntity<UserRole> createRole(@RequestBody UserRole userRole) {
+	public ResponseEntity<String> createRole(@RequestBody UserRole userRole) {
 		return iUserRoleService.createRole(userRole);
 	}
 	

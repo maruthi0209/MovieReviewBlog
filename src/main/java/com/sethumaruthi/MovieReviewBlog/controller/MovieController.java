@@ -32,7 +32,7 @@ public class MovieController {
 	}
 	
 	@PostMapping(value = "/createMovie")
-	public ResponseEntity<Movie> createMovie(@RequestBody Movie movie) {
+	public ResponseEntity<String> createMovie(@RequestBody Movie movie) {
 		return iMovieService.createMovie(movie);
 	}
 

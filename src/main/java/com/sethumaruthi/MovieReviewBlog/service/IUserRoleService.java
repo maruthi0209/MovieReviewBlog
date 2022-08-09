@@ -10,7 +10,7 @@ import com.sethumaruthi.MovieReviewBlog.models.UserRole;
 @Component
 public interface IUserRoleService {
 	
-	public ResponseEntity<UserRole> createRole(UserRole role);
+	public ResponseEntity<String> createRole(UserRole role);
 	
 	public ResponseEntity<UserRole> getRole(Long roleId);
 	

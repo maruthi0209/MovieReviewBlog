@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.sethumaruthi.MovieReviewBlog.models.AppUser;
 import com.sethumaruthi.MovieReviewBlog.repository.IUserRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IUserService;
+import com.sethumaruthi.MovieReviewBlog.util.ValidateAppUserEntities;
 
 @Service
 public class UserServiceImpl implements IUserService{
@@ -22,14 +23,22 @@ public class UserServiceImpl implements IUserService{
 	@Autowired
 	private IUserRepository iUserRepository;
 	
+	@Autowired
+	private ValidateAppUserEntities validateAppUserEntities;
+	
 	public static final Logger logger = LoggerFactory.getLogger(StudioServiceImpl.class);
 
 	@Override
 	@Transactional
-	public ResponseEntity<AppUser> createUser(AppUser user) {
-		AppUser savedUser = iUserRepository.save(user);
-		ResponseEntity<AppUser> savedResponse = new ResponseEntity<>(savedUser, HttpStatus.CREATED);
-		return savedResponse;
+	public ResponseEntity<String> createUser(AppUser user) {
+		if (validateAppUserEntities.validateAppUserEntities(user)) {
+			AppUser savedUser = iUserRepository.save(user);
+			logger.info("Saved role: " + savedUser.toString());
+			logger.info("User details saved successfully.");
+			return new ResponseEntity<>("User details saved successfully.", HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>("User details failed validation check. Enter validate details.", HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	@Override

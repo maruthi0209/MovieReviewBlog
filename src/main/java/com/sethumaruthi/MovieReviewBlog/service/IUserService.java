@@ -10,7 +10,7 @@ import com.sethumaruthi.MovieReviewBlog.models.AppUser;
 @Component
 public interface IUserService {
 	
-	public ResponseEntity<AppUser> createUser(AppUser user);
+	public ResponseEntity<String> createUser(AppUser user);
 	
 	public ResponseEntity<AppUser> getUser(Long userId);
 	
