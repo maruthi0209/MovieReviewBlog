@@ -12,7 +12,7 @@ public class ValidateMovieEntities {
 	public static final Logger logger = LoggerFactory.getLogger(ValidateMovieEntities.class);
 	
 	public boolean validateMovie(Movie movie) {
-		if (validateMovieName(movie.getMovieName()) && validateReleaseDate(movie.getReleaseDate())
+		if (validateMovieName(movie.getMovieName()) && validateReleaseDate(movie.getReleaseDate()) && validateNullCheck(movie)
 				&& validateMovieBudget(movie.getBudget()) && validateBoxOffice(movie.getBoxOffice())) {
 			logger.info("Given movie details passed validation check.");
 			return true;
@@ -48,8 +48,23 @@ public class ValidateMovieEntities {
 		}
 		if (releaseDate.matches("[!@#$%^&*{}<>+-]*")) {
 			logger.info("Movie release date contains special characters. Failed validation check.");
+			return false;
 		}
 		logger.info("Given " + releaseDate + " passed validation check.");
+		return true;
+	}
+	
+	private boolean validateNullCheck(Movie movie) {
+		logger.info("Checking the budget and boxOffice fields for null value.");
+		if (movie.getBudget() == null) {
+			logger.info("Movie budget field is null. Failed validation check.");
+			return false;
+		}
+		if (movie.getBoxOffice() == null) {
+			logger.info("Movie boxOffice field is null. Failed validation check.");
+			return false;
+		}
+		logger.info("Budget and boxOffice fields passed validation check.");
 		return true;
 	}
 	
