@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import com.sethumaruthi.MovieReviewBlog.models.UserRole;
 import com.sethumaruthi.MovieReviewBlog.repository.IUserRoleRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IUserRoleService;
-import com.sethumaruthi.MovieReviewBlog.util.ValidateUserRoleEntities;
+import com.sethumaruthi.MovieReviewBlog.validations.ValidateUserRoleEntities;
 
 @Service
 public class UserRoleServiceImpl implements IUserRoleService{

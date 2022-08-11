@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import com.sethumaruthi.MovieReviewBlog.models.AppUser;
 import com.sethumaruthi.MovieReviewBlog.repository.IUserRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IUserService;
-import com.sethumaruthi.MovieReviewBlog.util.ValidateAppUserEntities;
+import com.sethumaruthi.MovieReviewBlog.validations.ValidateAppUserEntities;
 
 @Service
 public class UserServiceImpl implements IUserService{

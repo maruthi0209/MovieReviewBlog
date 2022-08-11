@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import com.sethumaruthi.MovieReviewBlog.models.Review;
 import com.sethumaruthi.MovieReviewBlog.repository.IReviewRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IReviewService;
-import com.sethumaruthi.MovieReviewBlog.util.ValidateReviewEntities;
+import com.sethumaruthi.MovieReviewBlog.validations.ValidateReviewEntities;
 
 @Service
 public class ReviewServiceImpl implements IReviewService{

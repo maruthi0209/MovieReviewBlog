@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import com.sethumaruthi.MovieReviewBlog.models.Genre;
 import com.sethumaruthi.MovieReviewBlog.repository.IGenreRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IGenreService;
-import com.sethumaruthi.MovieReviewBlog.util.ValidateGenreEntities;
+import com.sethumaruthi.MovieReviewBlog.validations.ValidateGenreEntities;
 
 @Service
 public class GenreServiceImpl implements IGenreService{

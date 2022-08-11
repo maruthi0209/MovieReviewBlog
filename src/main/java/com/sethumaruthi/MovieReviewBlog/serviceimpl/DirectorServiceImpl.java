@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import com.sethumaruthi.MovieReviewBlog.models.Director;
 import com.sethumaruthi.MovieReviewBlog.repository.IDirectorRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IDirectorService;
-import com.sethumaruthi.MovieReviewBlog.util.ValidateDirectorEntities;
+import com.sethumaruthi.MovieReviewBlog.validations.ValidateDirectorEntities;
 
 @Service
 public class DirectorServiceImpl implements IDirectorService{

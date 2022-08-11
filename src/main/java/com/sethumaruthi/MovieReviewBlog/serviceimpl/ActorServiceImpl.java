@@ -12,10 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.sethumaruthi.MovieReviewBlog.exception.ValidationException;
 import com.sethumaruthi.MovieReviewBlog.models.Actor;
 import com.sethumaruthi.MovieReviewBlog.repository.IActorRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IActorService;
-import com.sethumaruthi.MovieReviewBlog.util.ValidateActorEntities;
+import com.sethumaruthi.MovieReviewBlog.validations.ValidateActorEntities;
 
 @Service
 public class ActorServiceImpl implements IActorService{
@@ -54,7 +55,7 @@ public class ActorServiceImpl implements IActorService{
 			logger.info("Actor saved successfully.");
 			return new ResponseEntity<>("Actor details saved successfully.", HttpStatus.CREATED);
 		} else {
-			return new ResponseEntity<>("Actor details failed validation check. Enter valid details.", HttpStatus.BAD_REQUEST);
+			throw new ValidationException("Actor details failed validation check.");
 		}	
 	}
 
