@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.sethumaruthi.MovieReviewBlog.exception.ValidationException;
 import com.sethumaruthi.MovieReviewBlog.models.Studio;
 import com.sethumaruthi.MovieReviewBlog.repository.IStudioRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IStudioService;
@@ -55,7 +56,7 @@ public class StudioServiceImpl implements IStudioService{
 			logger.info("Studio saved successfully.");
 			return new ResponseEntity<>("Studio details saved successfully", HttpStatus.CREATED);
 		}
-		return new ResponseEntity<>("Studio details failed validation check. Enter valid details.", HttpStatus.BAD_REQUEST);
+		throw new ValidationException("Studio details failed validation check.");
 	}
 
 	@Override

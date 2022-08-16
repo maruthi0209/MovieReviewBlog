@@ -49,13 +49,18 @@ public class ActorServiceImpl implements IActorService{
 	@Override
 	@Transactional
 	public ResponseEntity<String> createActor(Actor actor) {
-		if (validateActorEntities.validateActor(actor)) {
+		List<String> validations = validateActorEntities.validateActor(actor);
+		if (validations.size() == 0) {
 			Actor savedActor = iActorRepository.save(actor);
 			logger.info("Saved actor: " + savedActor.toString());
 			logger.info("Actor saved successfully.");
 			return new ResponseEntity<>("Actor details saved successfully.", HttpStatus.CREATED);
 		} else {
-			throw new ValidationException("Actor details failed validation check.");
+			String respString = new String();
+			for (int i = 0; i < validations.size(); i++) { 
+				respString = respString.concat(validations.get(i));
+			}
+			throw new ValidationException(respString);
 		}	
 	}
 

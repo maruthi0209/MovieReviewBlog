@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.sethumaruthi.MovieReviewBlog.exception.ValidationException;
 import com.sethumaruthi.MovieReviewBlog.models.UserRole;
 import com.sethumaruthi.MovieReviewBlog.repository.IUserRoleRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IUserRoleService;
@@ -37,7 +38,7 @@ public class UserRoleServiceImpl implements IUserRoleService{
 			logger.info("User Role saved successfully.");
 			return new ResponseEntity<>("User Role details saved successfully.", HttpStatus.CREATED);
 		} else {
-			return new ResponseEntity<>("User Role details failed validation check. Enter valid details.", HttpStatus.BAD_REQUEST);	
+			throw new ValidationException("Role details failed validation check.");
 		}
 	}
 

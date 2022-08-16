@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.sethumaruthi.MovieReviewBlog.exception.ValidationException;
 import com.sethumaruthi.MovieReviewBlog.models.Director;
 import com.sethumaruthi.MovieReviewBlog.repository.IDirectorRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IDirectorService;
@@ -55,7 +56,7 @@ public class DirectorServiceImpl implements IDirectorService{
 			logger.info("Director saved successfully.");
 			return new ResponseEntity<>("Director details saved successfully.", HttpStatus.CREATED);
 		} else {
-			return new ResponseEntity<>("Director details failed validation check. Enter valid details.", HttpStatus.BAD_REQUEST);
+			throw new ValidationException("Director details failed validation check.");
 		}
 	}
 

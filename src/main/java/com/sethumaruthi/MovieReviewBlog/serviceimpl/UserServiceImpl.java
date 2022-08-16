@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.sethumaruthi.MovieReviewBlog.exception.ValidationException;
 import com.sethumaruthi.MovieReviewBlog.models.AppUser;
 import com.sethumaruthi.MovieReviewBlog.repository.IUserRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IUserService;
@@ -37,7 +38,7 @@ public class UserServiceImpl implements IUserService{
 			logger.info("User details saved successfully.");
 			return new ResponseEntity<>("User details saved successfully.", HttpStatus.CREATED);
 		} else {
-			return new ResponseEntity<>("User details failed validation check. Enter validate details.", HttpStatus.BAD_REQUEST);
+			throw new ValidationException("User details failed validation check.");
 		}
 	}
 

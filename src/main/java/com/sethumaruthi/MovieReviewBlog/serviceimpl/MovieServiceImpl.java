@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.sethumaruthi.MovieReviewBlog.exception.ValidationException;
 import com.sethumaruthi.MovieReviewBlog.models.Movie;
 import com.sethumaruthi.MovieReviewBlog.repository.IMovieRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IMovieService;
@@ -53,7 +54,7 @@ public class MovieServiceImpl implements IMovieService{
 			logger.info("Movie details saved successfully.");
 			return new ResponseEntity<>("Movie details saved successfully.", HttpStatus.CREATED);
 		} else {
-			return new ResponseEntity<>("Movie details failed validation check. Enter valid details.", HttpStatus.CREATED);
+			throw new ValidationException("Movie details failed validation check.");
 		}
 	}
 

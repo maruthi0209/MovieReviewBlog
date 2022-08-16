@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.sethumaruthi.MovieReviewBlog.exception.ValidationException;
 import com.sethumaruthi.MovieReviewBlog.models.Genre;
 import com.sethumaruthi.MovieReviewBlog.repository.IGenreRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IGenreService;
@@ -55,7 +56,7 @@ public class GenreServiceImpl implements IGenreService{
 			logger.info("Genre saved successfully.");
 			return new ResponseEntity<>("Genre details saved successfully.", HttpStatus.CREATED);
 		} else {
-			return new ResponseEntity<>("Genre details failed validation check. Enter valid details.", HttpStatus.CREATED);
+			throw new ValidationException("Genre details failed validation check.");
 		}
 	}
 

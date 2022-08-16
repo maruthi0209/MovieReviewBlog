@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.sethumaruthi.MovieReviewBlog.exception.ValidationException;
 import com.sethumaruthi.MovieReviewBlog.models.Review;
 import com.sethumaruthi.MovieReviewBlog.repository.IReviewRepository;
 import com.sethumaruthi.MovieReviewBlog.service.IReviewService;
@@ -37,7 +38,7 @@ public class ReviewServiceImpl implements IReviewService{
 			logger.info("Movie review saved successfully.");
 			return new ResponseEntity<>("Movie review saved successfully.", HttpStatus.CREATED);
 		} else {
-			return new ResponseEntity<>("Movie Review failed validation check. Enter validate details.", HttpStatus.BAD_REQUEST);
+			throw new ValidationException("Review details failed validation check.");
 		}
 	}
 	
