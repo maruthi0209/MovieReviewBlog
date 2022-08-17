@@ -50,13 +50,19 @@ public class StudioServiceImpl implements IStudioService{
 	@Override
 	@Transactional
 	public ResponseEntity<String> createStudio(Studio studio) {
-		if (validateStudioEntities.validateStudio(studio)) {
+		List<String> validations = validateStudioEntities.validateStudio(studio);
+		if (validations.size() == 0) {
 			Studio savedStudio = iStudioRepository.save(studio);
 			logger.info("Saved studio: " + savedStudio.toString());
 			logger.info("Studio saved successfully.");
 			return new ResponseEntity<>("Studio details saved successfully", HttpStatus.CREATED);
+		} else {
+			String respString = new String();
+			for (int i = 0; i < validations.size(); i++) {
+				respString = respString.concat(validations.get(i));
+			}
+			throw new ValidationException(respString);
 		}
-		throw new ValidationException("Studio details failed validation check.");
 	}
 
 	@Override

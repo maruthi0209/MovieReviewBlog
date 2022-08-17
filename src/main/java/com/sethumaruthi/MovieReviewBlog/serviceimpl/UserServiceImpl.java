@@ -32,13 +32,18 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	@Transactional
 	public ResponseEntity<String> createUser(AppUser user) {
-		if (validateAppUserEntities.validateAppUserEntities(user)) {
+		List<String> validations = validateAppUserEntities.validateAppUserEntities(user);
+		if (validations.size() == 0) {
 			AppUser savedUser = iUserRepository.save(user);
 			logger.info("Saved role: " + savedUser.toString());
 			logger.info("User details saved successfully.");
 			return new ResponseEntity<>("User details saved successfully.", HttpStatus.CREATED);
 		} else {
-			throw new ValidationException("User details failed validation check.");
+			String respString = new String();
+			for (int i = 0; i < validations.size(); i ++) {
+				respString = respString.concat(validations.get(i));
+			}
+			throw new ValidationException(respString);
 		}
 	}
 

@@ -50,13 +50,18 @@ public class GenreServiceImpl implements IGenreService{
 	@Override
 	@Transactional
 	public ResponseEntity<String> createGenre(Genre genre) {
-		if (validateGenreEntities.validateGenre(genre)) {
+		List<String> validations = validateGenreEntities.validateGenre(genre);
+		if (validations.size() == 0) {
 			Genre savedGenre = iGenreRepository.save(genre);
 			logger.info("Saved genre: " + savedGenre.toString());
 			logger.info("Genre saved successfully.");
 			return new ResponseEntity<>("Genre details saved successfully.", HttpStatus.CREATED);
 		} else {
-			throw new ValidationException("Genre details failed validation check.");
+			String respString = new String();
+			for (int i = 0; i < validations.size(); i++) {
+				respString = respString.concat(validations.get(i));
+			}
+			throw new ValidationException(respString);
 		}
 	}
 

@@ -32,13 +32,18 @@ public class ReviewServiceImpl implements IReviewService{
 	@Override
 	@Transactional
 	public ResponseEntity<String> createReview(Review review) {
-		if (validateReviewEntities.validateReview(review)) {
+		List<String> validations = validateReviewEntities.validateReview(review);
+		if (validations.size() == 0) {
 			Review savedReview = iReviewRepository.save(review);
 			logger.info("Saved review: " + savedReview.toString());
 			logger.info("Movie review saved successfully.");
 			return new ResponseEntity<>("Movie review saved successfully.", HttpStatus.CREATED);
 		} else {
-			throw new ValidationException("Review details failed validation check.");
+			String respString = new String();
+			for (int i = 0; i < validations.size(); i ++) {
+				respString = respString.concat(validations.get(i));
+			}
+			throw new ValidationException(respString);
 		}
 	}
 	

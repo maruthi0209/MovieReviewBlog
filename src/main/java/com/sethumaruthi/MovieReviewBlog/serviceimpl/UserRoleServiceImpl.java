@@ -32,13 +32,18 @@ public class UserRoleServiceImpl implements IUserRoleService{
 	@Override
 	@Transactional
 	public ResponseEntity<String> createRole(UserRole role) {
-		if (validateUserRoleEntities.validateUserRole(role)) {
+		List<String> validations = validateUserRoleEntities.validateUserRole(role);
+		if (validations.size() == 0) {
 			UserRole savedRole = iUserRoleRepository.save(role);
 			logger.info("Saved role: " + savedRole.toString());
 			logger.info("User Role saved successfully.");
 			return new ResponseEntity<>("User Role details saved successfully.", HttpStatus.CREATED);
 		} else {
-			throw new ValidationException("Role details failed validation check.");
+			String respString = new String();
+			for (int i = 0; i < validations.size(); i++) {
+				respString = respString.concat(validations.get(i));
+			}
+			throw new ValidationException(respString);
 		}
 	}
 

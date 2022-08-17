@@ -1,5 +1,8 @@
 package com.sethumaruthi.MovieReviewBlog.validations;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -11,28 +14,22 @@ public class ValidateGenreEntities {
 	
 	public static final Logger logger = LoggerFactory.getLogger(ValidateGenreEntities.class);
 	
-	public boolean validateGenre(Genre genre) {
-		if (validateGenreDescription(genre.getGenreDescription())) {
-			logger.info("Given genre details pass validation check.");
-			return true;
-		} else {
-			logger.info("Given genre details fail validation check.");
-			return false;
-		}
+	public List<String> validateGenre(Genre genre) {
+		List<String> validations = new ArrayList<String>();
+		validations = validateGenreDescription(genre.getGenreDescription(), validations);
+		return validations;
 	}
 	
-	private boolean validateGenreDescription(String genreDescription) {
+	private List<String> validateGenreDescription(String genreDescription, List<String> validations) {
 		logger.info("Validating genre description from the request body");
 		if (genreDescription== null) {
-			logger.info("Genre description field is null. Failed validation check.");
-			return false;
-		}
-		if (genreDescription.isBlank() || genreDescription.isEmpty()) {
-			logger.info("Genre description is blank or empty. Failed validation check.");
-			return false;
-		}
+			validations.add("Genre description field is null. \n");
+		} else if (genreDescription.isBlank() || genreDescription.isEmpty()) {
+			validations.add("Genre description is blank or empty. \n");
+		} else {
 		logger.info("Given " + genreDescription + " passes validation check.");
-		return true;
+		}
+		return validations;
 	}
 
 }

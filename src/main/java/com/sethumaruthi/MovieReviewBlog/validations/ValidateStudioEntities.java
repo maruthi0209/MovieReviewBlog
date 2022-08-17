@@ -1,5 +1,8 @@
 package com.sethumaruthi.MovieReviewBlog.validations;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -11,28 +14,22 @@ public class ValidateStudioEntities {
 	
 	public static final Logger logger = LoggerFactory.getLogger(ValidateStudioEntities.class);
 	
-	public boolean validateStudio (Studio studio) {
-		if (validateStudioName(studio.getStudioName())) {
-			logger.info("Given studio  details pass validation check.");
-			return true;
-		} else {
-			logger.info("Given studio details fail validation check.");
-			return false;
-		}
+	public List<String> validateStudio (Studio studio) {
+		List<String> validations = new ArrayList<String>();
+		validations = validateStudioName(studio.getStudioName(), validations);
+		return validations;
 	}
 	
-	private boolean validateStudioName(String studioName) {
+	private List<String> validateStudioName(String studioName, List<String> validations) {
 		logger.info("Validating studio name from the request body");
 		if (studioName== null) {
-			logger.info("Studio name field is null. Failed validation check.");
-			return false;
-		}
-		if (studioName.isBlank() || studioName.isEmpty()) {
-			logger.info("Studio name is blank or empty. Failed validation check.");
-			return false;
-		}
+			validations.add("Studio name field is null. \n");
+		} else if (studioName.isBlank() || studioName.isEmpty()) {
+			validations.add("Studio name is blank or empty. \n");
+		} else {
 		logger.info("Given " + studioName + " passes validation check.");
-		return true;
+		}
+		return validations;
 	}
 
 

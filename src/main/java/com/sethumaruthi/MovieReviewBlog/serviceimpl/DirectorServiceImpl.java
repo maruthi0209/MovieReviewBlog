@@ -50,13 +50,18 @@ public class DirectorServiceImpl implements IDirectorService{
 	@Override
 	@Transactional
 	public ResponseEntity<String> createDirector(Director director) {
-		if (validateDirectorEntities.validateDirector(director)) {
+		List<String> validations = validateDirectorEntities.validateDirector(director);
+		if (validations.size() == 0) {
 			Director savedDirector = iDirectorRepository.save(director);
 			logger.info("Saved director: " + savedDirector.toString());
 			logger.info("Director saved successfully.");
 			return new ResponseEntity<>("Director details saved successfully.", HttpStatus.CREATED);
 		} else {
-			throw new ValidationException("Director details failed validation check.");
+			String respString = new String();
+			for (int i = 0; i < validations.size(); i++) { 
+				respString = respString.concat(validations.get(i));
+			}
+			throw new ValidationException(respString);
 		}
 	}
 

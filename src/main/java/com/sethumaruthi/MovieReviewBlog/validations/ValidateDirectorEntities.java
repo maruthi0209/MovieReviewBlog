@@ -1,5 +1,8 @@
 package com.sethumaruthi.MovieReviewBlog.validations;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -11,28 +14,22 @@ public class ValidateDirectorEntities {
 	
 	public static final Logger logger = LoggerFactory.getLogger(ValidateDirectorEntities.class);
 
-	public boolean validateDirector(Director director) {
-		if (validateDirectorName(director.getDirectorName())) {
-			logger.info("Given director details pass validation check.");
-			return true;
-		} else {
-			logger.info("Given director details fail validation check.");
-			return false;
-		}
+	public List<String> validateDirector(Director director) {
+		List<String> validations = new ArrayList<String>();
+		validations = validateDirectorName(director.getDirectorName(), validations);
+		return validations;
 	}
 	
-	private boolean validateDirectorName(String directorName) {
+	private List<String> validateDirectorName(String directorName, List<String> validations) {
 		logger.info("Validating director name from the request body");
 		if (directorName== null) {
-			logger.info("Director name field is null. Failed validation check.");
-			return false;
-		}
-		if (directorName.isBlank() || directorName.isEmpty()) {
-			logger.info("Director name is blank or empty. Failed validation check.");
-			return false;
-		}
+			validations.add("Director name field is null. \n");
+		} else if (directorName.isBlank() || directorName.isEmpty()) {
+			validations.add("Director name is blank or empty. \n");
+		} else {
 		logger.info("Given " + directorName + " passes validation check.");
-		return true;
+		}
+		return validations;
 	}
 
 }
