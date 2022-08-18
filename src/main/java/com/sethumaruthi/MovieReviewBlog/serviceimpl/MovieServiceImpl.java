@@ -48,13 +48,18 @@ public class MovieServiceImpl implements IMovieService{
 	@Override
 	@Transactional
 	public ResponseEntity<String> createMovie(Movie movie) {
-		if (validateMovieEntities.validateMovie(movie)) {
+		List<String> validations = validateMovieEntities.validateMovie(movie);
+		if (validations.size() == 0) {
 			Movie savedMovie = iMovieRepository.save(movie);
 			logger.info("Saved movie: " + savedMovie.toString());
 			logger.info("Movie details saved successfully.");
 			return new ResponseEntity<>("Movie details saved successfully.", HttpStatus.CREATED);
 		} else {
-			throw new ValidationException("Movie details failed validation check.");
+			String respString = new String();
+			for (int i = 0; i < validations.size(); i++) {
+				respString = respString.concat(validations.get(i));
+			}
+			throw new ValidationException(respString);
 		}
 	}
 
