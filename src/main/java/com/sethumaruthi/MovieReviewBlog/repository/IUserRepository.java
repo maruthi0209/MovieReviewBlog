@@ -13,7 +13,7 @@ public interface IUserRepository extends JpaRepository<AppUser, Long>{
 	List<Long> getReviewsFromUserId(Long userId);
 	
 	@Modifying
-	@Query(value = "UPDATE public.review SET user_user_id=NULL WHERE user_user_id=?1 ;", nativeQuery=true)
+	@Query(value = "DELETE FROM public.review WHERE user_user_id=?1 ;", nativeQuery=true)
 	int updateUserReviewsByUserId(Long userId);
 	
 }

@@ -68,7 +68,7 @@ public class MovieServiceImpl implements IMovieService{
 	public ResponseEntity<String> deleteMovie(Long movieId) {
 		if (iMovieRepository.existsById(movieId)) {
 			logger.info("Movie by Id " + movieId + " exists. Deleting it..");
-			logger.info("Deleting associated tables data.");
+			logger.info("Deleting associated actors data.");
 			deleteMovieAssociatedTablesData(movieId);
 			logger.info("Deleted associated tables data.");
 			iMovieRepository.deleteById(movieId);
@@ -86,6 +86,10 @@ public class MovieServiceImpl implements IMovieService{
 		logger.info("Deleting data from Movie Genre table.");
 		iMovieRepository.deleteFromMovieGenre(movieId);
 		logger.info("Deleted data from Movie Genre table.");
+		logger.info("Deleting data from Movie review table.");
+		iMovieRepository.deleteFromReview(movieId);
+		logger.info("Deleted data from Movie review table.");
+
 	}
 
 }
