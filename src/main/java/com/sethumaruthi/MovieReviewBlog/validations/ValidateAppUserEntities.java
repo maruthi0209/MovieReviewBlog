@@ -15,9 +15,11 @@ public class ValidateAppUserEntities {
 	public static final Logger logger = LoggerFactory.getLogger(ValidateAppUserEntities.class);
 	
 	public List<String> validateAppUserEntities(AppUser appUser) {
+		logger.info("Validating the user object.");
 		List<String> validations = new ArrayList<String>();
 		validations = validateUserEmail(appUser.getUserEmail(), validations);
 		validations = validateUserPassword(appUser.getUserPassword(), validations);
+		logger.info("Validated the user object.");
 		return validations;
 	}
 	

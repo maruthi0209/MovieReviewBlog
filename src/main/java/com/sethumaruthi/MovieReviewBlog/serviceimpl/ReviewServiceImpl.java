@@ -39,10 +39,12 @@ public class ReviewServiceImpl implements IReviewService{
 			logger.info("Movie review saved successfully.");
 			return new ResponseEntity<>("Movie review saved successfully.", HttpStatus.CREATED);
 		} else {
+			logger.info("Entered review details failed validation check.");
 			String respString = new String();
 			for (int i = 0; i < validations.size(); i ++) {
 				respString = respString.concat(validations.get(i));
 			}
+			logger.info(respString);
 			throw new ValidationException(respString);
 		}
 	}
@@ -50,16 +52,20 @@ public class ReviewServiceImpl implements IReviewService{
 	@Override
 	@Transactional
 	public ResponseEntity<Review> getReview(Long reviewId) {
+		logger.info("Fetching review details with Id: %s".formatted(reviewId));
 		Review review = iReviewRepository.findById(reviewId).orElseThrow(() -> new EntityNotFoundException("Review with Id " + reviewId + " was not found"));
 		ResponseEntity<Review> getReview = new ResponseEntity<>(review, HttpStatus.OK);
+		logger.info("Successfully fetched review details.");
 		return getReview;
 	}
 	
 	@Override
 	@Transactional 
 	public ResponseEntity<List<Review>> getAllReviews() {
+		logger.info("Fetching all available movie reviews.");
 		List<Review> reviewsList = iReviewRepository.findAll();
 		ResponseEntity<List<Review>> listResponse = new ResponseEntity<List<Review>>(reviewsList, HttpStatus.OK);
+		logger.info("Successfully fetched all reviews for movie.");
 		return listResponse;
 	}
 }

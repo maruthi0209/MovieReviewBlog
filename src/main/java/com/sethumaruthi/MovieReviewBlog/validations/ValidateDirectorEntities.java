@@ -15,8 +15,10 @@ public class ValidateDirectorEntities {
 	public static final Logger logger = LoggerFactory.getLogger(ValidateDirectorEntities.class);
 
 	public List<String> validateDirector(Director director) {
+		logger.info("Validating the director object.");
 		List<String> validations = new ArrayList<String>();
 		validations = validateDirectorName(director.getDirectorName(), validations);
+		logger.info("Validated the director object.");
 		return validations;
 	}
 	

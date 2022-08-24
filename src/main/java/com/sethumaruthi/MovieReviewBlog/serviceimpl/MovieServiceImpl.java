@@ -32,16 +32,20 @@ public class MovieServiceImpl implements IMovieService{
 	@Override
 	@Transactional
 	public ResponseEntity<Movie> getMovie(Long movieId) {
+		logger.info("Fetching movie details with Id: %s".formatted(movieId));
 		Movie movie = iMovieRepository.findById(movieId).orElseThrow(()-> new EntityNotFoundException("Movie with id " + movieId + " was not found"));
 		ResponseEntity<Movie> getResponse = new ResponseEntity<>(movie, HttpStatus.OK);
+		logger.info("Successfully fetched movie details.");
 		return getResponse;
 	}
 
 	@Override
 	@Transactional
 	public ResponseEntity<List<Movie>> getAllMovies() {
+		logger.info("Fetching details of all available movies");
 		List<Movie> moviesList = iMovieRepository.findAll();
 		ResponseEntity<List<Movie>> listResponse = new ResponseEntity<>(moviesList, HttpStatus.OK);
+		logger.info("Successfully fetched all movies' details.");
 		return listResponse;
 	}
 
@@ -55,10 +59,12 @@ public class MovieServiceImpl implements IMovieService{
 			logger.info("Movie details saved successfully.");
 			return new ResponseEntity<>("Movie details saved successfully.", HttpStatus.CREATED);
 		} else {
+			logger.info("Entered movie details failed validation check.");
 			String respString = new String();
 			for (int i = 0; i < validations.size(); i++) {
 				respString = respString.concat(validations.get(i));
 			}
+			logger.info(respString);
 			throw new ValidationException(respString);
 		}
 	}

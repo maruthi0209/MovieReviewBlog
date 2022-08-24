@@ -15,8 +15,10 @@ public class ValidateGenreEntities {
 	public static final Logger logger = LoggerFactory.getLogger(ValidateGenreEntities.class);
 	
 	public List<String> validateGenre(Genre genre) {
+		logger.info("Validating the genre object.");
 		List<String> validations = new ArrayList<String>();
 		validations = validateGenreDescription(genre.getGenreDescription(), validations);
+		logger.info("Validated the genre object.");
 		return validations;
 	}
 	

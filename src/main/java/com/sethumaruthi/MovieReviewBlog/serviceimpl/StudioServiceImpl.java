@@ -33,17 +33,21 @@ public class StudioServiceImpl implements IStudioService{
 	@Override
 	@Transactional
 	public ResponseEntity<Studio> getStudio(Long studioId) {
+		logger.info("Fetching studio details with Id: %s".formatted(studioId));
 		Studio studio = iStudioRepository.findById(studioId).orElseThrow(() -> new EntityNotFoundException("Studio with Id " + studioId + " was not found"));
 		ResponseEntity<Studio> getResponse = new ResponseEntity<>(studio, HttpStatus.OK);
+		logger.info("Successfully fetched the studio details.");
 		return getResponse;
 	}
 
 	@Override
 	@Transactional
 	public ResponseEntity<List<Studio>> getAllStudios() {
+		logger.info("Fetching details of all available studios");
 		List<Studio> studiosList = new ArrayList<Studio>();
 		studiosList = iStudioRepository.findAll();
 		ResponseEntity<List<Studio>> listResponse = new ResponseEntity<>(studiosList, HttpStatus.OK);
+		logger.info("Successfully fetched all studios' details");
 		return listResponse;
 	}
 
@@ -57,10 +61,12 @@ public class StudioServiceImpl implements IStudioService{
 			logger.info("Studio saved successfully.");
 			return new ResponseEntity<>("Studio details saved successfully", HttpStatus.CREATED);
 		} else {
+			logger.info("Entered studio details failed validation check.");
 			String respString = new String();
 			for (int i = 0; i < validations.size(); i++) {
 				respString = respString.concat(validations.get(i));
 			}
+			logger.info(respString);
 			throw new ValidationException(respString);
 		}
 	}

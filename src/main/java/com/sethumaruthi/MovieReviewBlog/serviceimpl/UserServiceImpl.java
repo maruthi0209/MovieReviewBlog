@@ -39,10 +39,12 @@ public class UserServiceImpl implements IUserService{
 			logger.info("User details saved successfully.");
 			return new ResponseEntity<>("User details saved successfully.", HttpStatus.CREATED);
 		} else {
+			logger.info("Entered user details failed validation check.");
 			String respString = new String();
 			for (int i = 0; i < validations.size(); i ++) {
 				respString = respString.concat(validations.get(i));
 			}
+			logger.info(respString);
 			throw new ValidationException(respString);
 		}
 	}
@@ -50,16 +52,20 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	@Transactional
 	public ResponseEntity<AppUser> getUser(Long userId) {
+		logger.info("Fetching user details with Id: %s".formatted(userId));
 		AppUser user = iUserRepository.findById(userId).orElseThrow(()-> new EntityNotFoundException("User with username " + userId + " was not found"));
 		ResponseEntity<AppUser> getResponse = new ResponseEntity<>(user, HttpStatus.OK);
+		logger.info("Successfully fetched the user details.");
 		return getResponse;
 	}
 
 	@Override
 	@Transactional
 	public ResponseEntity<List<AppUser>> getAllUsers() {
+		logger.info("Fetching details of all available users.");
 		List<AppUser> usersList = iUserRepository.findAll();
 		ResponseEntity<List<AppUser>> listResponse = new ResponseEntity<>(usersList, HttpStatus.OK);
+		logger.info("Successfully fetched all users' details.");
 		return listResponse;
 	}
 

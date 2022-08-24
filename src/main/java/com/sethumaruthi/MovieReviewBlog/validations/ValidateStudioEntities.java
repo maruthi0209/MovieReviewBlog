@@ -15,8 +15,10 @@ public class ValidateStudioEntities {
 	public static final Logger logger = LoggerFactory.getLogger(ValidateStudioEntities.class);
 	
 	public List<String> validateStudio (Studio studio) {
+		logger.info("Validating the studio object.");
 		List<String> validations = new ArrayList<String>();
 		validations = validateStudioName(studio.getStudioName(), validations);
+		logger.info("Validated the studio object.");
 		return validations;
 	}
 	

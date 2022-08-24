@@ -32,17 +32,21 @@ public class ActorServiceImpl implements IActorService{
 	@Override
 	@Transactional
 	public ResponseEntity<Actor> getActor(Long actorId) {
-			Actor actor = iActorRepository.findById(actorId).orElseThrow(()-> new EntityNotFoundException("Actor with id " + actorId + " was not found"));
-			ResponseEntity<Actor> getResponse = new ResponseEntity<>(actor, HttpStatus.OK);
-			return getResponse;
+		logger.info("Fetching actor details with Id: %s".formatted(actorId));
+		Actor actor = iActorRepository.findById(actorId).orElseThrow(()-> new EntityNotFoundException("Actor with id " + actorId + " was not found"));
+		ResponseEntity<Actor> getResponse = new ResponseEntity<>(actor, HttpStatus.OK);
+		logger.info("Successfully fetched actor details.");
+		return getResponse;
 	}
 
 	@Override
 	@Transactional
 	public ResponseEntity<List<Actor>> getAllActors() {
+		logger.info("Fetching details of all available actors.");
 		List<Actor> actorsList = new ArrayList<Actor>();
 		actorsList = iActorRepository.findAll();
 		ResponseEntity<List<Actor>> listResponse = new ResponseEntity<>(actorsList, HttpStatus.OK);
+		logger.info("Successfully fetched all actors' details.");
 		return listResponse;
 	}
 
@@ -56,10 +60,12 @@ public class ActorServiceImpl implements IActorService{
 			logger.info("Actor saved successfully.");
 			return new ResponseEntity<>("Actor details saved successfully.", HttpStatus.CREATED);
 		} else {
+			logger.info("Entered actor details failed validation check.");
 			String respString = new String();
 			for (int i = 0; i < validations.size(); i++) { 
 				respString = respString.concat(validations.get(i));
 			}
+			logger.info(respString);
 			throw new ValidationException(respString);
 		}	
 	}

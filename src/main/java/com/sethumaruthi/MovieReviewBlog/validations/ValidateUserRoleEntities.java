@@ -15,8 +15,10 @@ public class ValidateUserRoleEntities {
 	public static final Logger logger = LoggerFactory.getLogger(ValidateUserRoleEntities.class);
 	
 	public List<String> validateUserRole(UserRole userRole) {
+		logger.info("Validating the role object.");
 		List<String> validations = new ArrayList<String>();
 		validations = validateRoleDescription(userRole.getRoleDescription(), validations);
+		logger.info("Validated the role object.");
 		return validations;
 	}
 	

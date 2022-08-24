@@ -39,10 +39,12 @@ public class UserRoleServiceImpl implements IUserRoleService{
 			logger.info("User Role saved successfully.");
 			return new ResponseEntity<>("User Role details saved successfully.", HttpStatus.CREATED);
 		} else {
+			logger.info("Entered role details failed validation check.");
 			String respString = new String();
 			for (int i = 0; i < validations.size(); i++) {
 				respString = respString.concat(validations.get(i));
 			}
+			logger.info(respString);
 			throw new ValidationException(respString);
 		}
 	}
@@ -50,16 +52,20 @@ public class UserRoleServiceImpl implements IUserRoleService{
 	@Override
 	@Transactional
 	public ResponseEntity<UserRole> getRole(Long roleId) {
+		logger.info("Fetching role details with Id: %s".formatted(roleId));
 		UserRole role = iUserRoleRepository.findById(roleId).orElseThrow(() -> new EntityNotFoundException("Role with Id " + roleId + " was not found"));
 		ResponseEntity<UserRole> getResponse = new ResponseEntity<>(role, HttpStatus.OK);
+		logger.info("Successfully fetched the role details.");
 		return getResponse;
 	}
 
 	@Override
 	@Transactional
 	public ResponseEntity<List<UserRole>> getAllRoles() {
+		logger.info("Fetching details of all available roles ");
 		List<UserRole> rolesList = iUserRoleRepository.findAll();
 		ResponseEntity<List<UserRole>> listResponse = new ResponseEntity<>(rolesList, HttpStatus.OK);
+		logger.info("Successfully fetched all roles' details.");
 		return listResponse;
 	}
 

@@ -33,17 +33,21 @@ public class GenreServiceImpl implements IGenreService{
 	@Override
 	@Transactional
 	public ResponseEntity<Genre> getGenre(Long genreId) {
+		logger.info("Fetching genre details with Id: %s".formatted(genreId));
 		Genre genre = iGenreRepository.findById(genreId).orElseThrow(() -> new EntityNotFoundException("Genre with Id " + genreId + " was not found"));
 		ResponseEntity<Genre> getResponse = new ResponseEntity<>(genre, HttpStatus.OK);
+		logger.info("Successfully fetched genre details.");
 		return getResponse;
 	}
 
 	@Override
 	@Transactional
 	public ResponseEntity<List<Genre>> getAllGenres() {
+		logger.info("Fetching details of all available genres.");
 		List<Genre> genresList = new ArrayList<Genre>();
 		genresList = iGenreRepository.findAll();
 		ResponseEntity<List<Genre>> listResponse = new ResponseEntity<>(genresList, HttpStatus.OK);
+		logger.info("Successfully fetched all genres' details.");
 		return listResponse;
 	}
 
@@ -57,10 +61,12 @@ public class GenreServiceImpl implements IGenreService{
 			logger.info("Genre saved successfully.");
 			return new ResponseEntity<>("Genre details saved successfully.", HttpStatus.CREATED);
 		} else {
+			logger.info("Entered genre details failed validation check.");
 			String respString = new String();
 			for (int i = 0; i < validations.size(); i++) {
 				respString = respString.concat(validations.get(i));
 			}
+			logger.info(respString);
 			throw new ValidationException(respString);
 		}
 	}

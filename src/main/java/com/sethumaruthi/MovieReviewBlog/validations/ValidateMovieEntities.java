@@ -15,12 +15,13 @@ public class ValidateMovieEntities {
 	public static final Logger logger = LoggerFactory.getLogger(ValidateMovieEntities.class);
 	
 	public List<String> validateMovie(Movie movie) {
+		logger.info("Validating the movie object.");
 		List<String> validations = new ArrayList<String>();
 		validations = validateMovieName(movie.getMovieName(), validations);
 		validations = validateReleaseDate(movie.getReleaseDate(), validations);
-		validations = validateNullCheck(movie, validations);
-		validations = validateMovieBudget(movie.getBudget(), validations);
-		validations = validateBoxOffice(movie.getBoxOffice(), validations);
+		validations = validateMovieBudget(movie, validations);
+		validations = validateBoxOffice(movie, validations);
+		logger.info("Validated the movie object.");
 		return validations;
 	}
 	
@@ -50,21 +51,11 @@ public class ValidateMovieEntities {
 		return validations;
 	}
 	
-	private List<String> validateNullCheck(Movie movie, List<String> validations) {
-		logger.info("Checking the budget and boxOffice fields for null value.");
+	private List<String> validateMovieBudget(Movie movie, List<String> validations) {
+		logger.info("Validating movie budget from the request body.");
 		if (movie.getBudget() == null) {
 			validations.add("Movie budget field is null. \n");
-		} else if (movie.getBoxOffice() == null) {
-			validations.add("Movie boxOffice field is null. \n");
-		} else {
-		logger.info("Budget and boxOffice fields passed validation check.");
-		}
-		return validations;
-	}
-	
-	private List<String> validateMovieBudget(Long budget, List<String> validations) {
-		logger.info("Validating movie budget from the request body.");
-		if (budget < 0) {
+		} else if (movie.getBudget() < 0) {
 			validations.add("Movie budget is negative. \n");
 		} else {
 		logger.info("Given budget passes validation checks.");
@@ -72,9 +63,11 @@ public class ValidateMovieEntities {
 		return validations;
 	}
 	
-	private List<String> validateBoxOffice(Long boxOffice, List<String> validations) {
+	private List<String> validateBoxOffice(Movie movie, List<String> validations) {
 		logger.info("Validating box office collection from the request body.");
-		if (boxOffice < 0) {
+		if (movie.getBoxOffice() == null) {
+			validations.add("Movie boxOffice field is null. \n");
+		} else if (movie.getBoxOffice() < 0) {
 			validations.add("Box office collection is negative. \n");
 		} else {
 		logger.info("Given box office collection passes validation checks.");

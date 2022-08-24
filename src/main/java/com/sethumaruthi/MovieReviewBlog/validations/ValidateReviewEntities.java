@@ -15,10 +15,12 @@ public class ValidateReviewEntities {
 	public static final Logger logger = LoggerFactory.getLogger(ValidateReviewEntities.class);
 	
 	public List<String> validateReview(Review review) {
+		logger.info("Validating the review object.");
 		List<String> validations = new ArrayList<String>();
 		validations = validateReviewTitle(review.getReviewTitle(), validations);
 		validations = validateReviewDescription(review.getReviewDescription(), validations);
 		validations = validateReviewRating(review.getReviewRating(), validations);
+		logger.info("Validated the review object.");
 		return validations;
 	}
 	

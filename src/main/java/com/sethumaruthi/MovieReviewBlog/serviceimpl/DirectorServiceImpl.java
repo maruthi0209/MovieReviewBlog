@@ -33,17 +33,21 @@ public class DirectorServiceImpl implements IDirectorService{
 	@Override
 	@Transactional
 	public ResponseEntity<Director> getDirector(Long directorId) {
+		logger.info("Fetching director details with Id: %s".formatted(directorId));
 		Director director = iDirectorRepository.findById(directorId).orElseThrow(() -> (new EntityNotFoundException("Director with id " + directorId + " was not found")));
 		ResponseEntity<Director> getresponse = new ResponseEntity<>(director, HttpStatus.OK);
+		logger.info("Successfully fetched director details.");
 		return getresponse;
 	}
 
 	@Override
 	@Transactional
 	public ResponseEntity<List<Director>> getAllDirectors() {
+		logger.info("Fetching details of all available actors.");
 		List<Director> directorsList = new ArrayList<Director>();
 		directorsList = iDirectorRepository.findAll();
 		ResponseEntity<List<Director>> listresponse = new ResponseEntity<>(directorsList, HttpStatus.OK);
+		logger.info("Successfully fetched all directors' details.");
 		return listresponse;
 	}
 
@@ -57,10 +61,12 @@ public class DirectorServiceImpl implements IDirectorService{
 			logger.info("Director saved successfully.");
 			return new ResponseEntity<>("Director details saved successfully.", HttpStatus.CREATED);
 		} else {
+			logger.info("Entered director details failed validation check.");
 			String respString = new String();
 			for (int i = 0; i < validations.size(); i++) { 
 				respString = respString.concat(validations.get(i));
 			}
+			logger.info(respString);
 			throw new ValidationException(respString);
 		}
 	}

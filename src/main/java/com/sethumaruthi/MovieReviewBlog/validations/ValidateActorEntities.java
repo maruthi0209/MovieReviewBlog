@@ -15,8 +15,10 @@ public class ValidateActorEntities {
 	public static final Logger logger = LoggerFactory.getLogger(ValidateActorEntities.class);
 	
 	public List<String> validateActor(Actor actor) {
+		logger.info("Validating the actor object.");
 		List<String> validations = new ArrayList<String>();
 		validations = validateActorName(actor.getActorName(), validations);
+		logger.info("Validated the actor object.");
 		return validations;
 	}
 	
